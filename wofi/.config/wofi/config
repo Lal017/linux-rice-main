@@ -1,0 +1,14 @@
+mode=drun
+style=/home/lalo/.config/wofi/style.css
+width=40%
+lines=10
+columns=2
+prompt=
+allow_images=true
+hide_scroll=true
+location=0
+halign=fill
+content_halign=left
+image_size=55
+dynamic_lines=false
+no_actions=true

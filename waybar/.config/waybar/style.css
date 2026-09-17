@@ -1,0 +1,129 @@
+* {
+    font-family: "ZedMono Nerd Font";
+    font-size: 17px;
+}
+
+window#waybar {
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+/*---------------------------------------*/
+/* MODULES */
+
+.modules-left {
+    margin-left: 10px;
+}
+
+.modules-right {
+    margin-right: 10px;
+}
+
+/*---------------------------------------*/
+/* WORKSPACES */
+
+#workspaces {
+    background-color: transparent;
+}
+
+#workspaces button {
+    color: white;
+    background-color: transparent;
+    padding: 0 3px;
+    text-shadow: 0 0 2px currentColor, 0 0 2px currentColor;
+}
+
+#workspaces button.active {
+    color: white;
+    background-color: transparent;
+}
+
+#workspaces button:hover {
+    background-color: white;
+    color: black;
+    border-radius: 0 20px 0 20px;
+}
+
+/*-------------------------------------*/
+/* MUSIC */
+
+#music {
+    background-color:  transparent;
+    border-radius: 10px;
+    padding: 0 8px;
+}
+#custom-cava {
+    color: white;
+    padding: 0 8px;
+}
+
+#mpris {
+    color: white;
+    padding: 0 8px;
+}
+
+/*-------------------------------------*/
+/* TASKBAR */
+
+#taskbar {
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+#taskbar button {
+    padding: 5px;
+}
+
+#taskbar button.active {
+    background-color: rgb(0, 85, 255);
+    border-radius: 0 20px 0 20px;
+}
+
+#taskbar button:hover {
+    background-color: white;
+    color: black;
+    border-radius: 0 20px 0 20px;
+}
+
+/*-------------------------------------*/
+/* CLOCK */
+
+#clock {
+    background-color: rgba(0, 61, 193, 0.25);
+    border-radius: 0 10px 0 10px;
+    color: white;
+    font-size: 18px;
+    padding: 0 20px;
+}
+
+/*-------------------------------------*/
+/* TOOLBAR */
+
+#toolbar {
+    background-color: rgba(0, 61, 193, 0.25);
+    border-radius: 0 10px 0 10px;
+    padding: 0 10px;
+}
+
+#pulseaudio,
+#network,
+#bluetooth,
+#custom-power{
+    color: white;
+    padding: 0 10px;
+}
+
+#network,
+#custom-power {
+    font-size: 17px;
+}
+
+#pulseaudio {
+    font-size: 12px;
+}
+
+#bluetooth {
+    font-size: 19px;
+}
+
+/*----------------------------------------*/

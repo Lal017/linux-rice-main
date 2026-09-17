@@ -1,0 +1,50 @@
+#window {
+    background-color: rgba(0, 0, 0, 0.01);
+    border-radius: 15px;
+}
+
+#outer-box {
+    border-width: 2px;
+    border-color: transparent;
+    border-style: solid;
+    border-radius: 15px;
+}
+
+#input {
+    background-color: transparent;
+    background-image: url("/home/lalo/Pictures/wallpapers/frieren.jpg");
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    color: transparent;
+    caret-color: transparent;
+    padding: 100px 10px;
+    border-color: transparent;
+    border-radius: 15px 15px 0 0;
+    background-origin: padding-box;
+    box-shadow: none;
+}
+
+#input image {
+    color: transparent;
+}
+
+#img,
+#text {
+    padding-left: 5px;
+}
+
+#entry {
+    border-radius: 5px;
+    padding: 10px 0;
+    outline: none;
+}
+
+#entry:selected {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+#unselected {
+    color: rgba(255, 255, 255, 0.7 );
+}

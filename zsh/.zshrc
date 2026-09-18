@@ -24,3 +24,5 @@ zstyle :compinstall filename '/home/lalo/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+alias ls='ls -A --color=auto'

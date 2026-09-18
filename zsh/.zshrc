@@ -26,3 +26,4 @@ compinit
 # End of lines added by compinstall
 
 alias ls='ls -A --color=auto'
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh

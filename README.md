@@ -30,11 +30,8 @@ These live outside `~/.config` or require root, so they need to be manually reap
 
 # ToDo
 
-- Configure and style hyprlock
-- test hypridle
 - Configure and style dolphin
 - Configure and style SDDM
 - configure and style notifications
 - Add dropdown and popup menus to waybar
-- Add instructions for getting a transparent window in zen browser
-- Add script to install rice on new machine for ease of use.
+- update install script to get a transparent window in zen browser

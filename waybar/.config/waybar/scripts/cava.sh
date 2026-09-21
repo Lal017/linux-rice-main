@@ -2,7 +2,7 @@
 
 bars="▁▂▃▄▅▆▇█"
 
-cava -p ~/.config/cava/waybar.conf | while read -r line; do
+stdbuf -oL cava -p ~/.config/cava/waybar.conf | while read -r line; do
     output=""
     IFS=';' read -ra heights <<< "$line"
     for h in "${heights[@]}"; do

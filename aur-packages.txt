@@ -1,5 +1,4 @@
 pear-desktop-bin
 vscodium-bin
-wlogout
-yay
 zen-browser-bin
+wlogout

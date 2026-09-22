@@ -18,8 +18,10 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- Configure and style dolphin
+- Configure and style thunar
 - Configure and style SDDM
 - configure and style notifications
 - Add dropdown and popup menus to waybar
 - update install script to get a transparent window in zen browser
+- add update script
+- switch wofi for rofi?

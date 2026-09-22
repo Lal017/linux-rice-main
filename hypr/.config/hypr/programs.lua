@@ -4,7 +4,7 @@
 
 return {
     terminal    = "kitty",
-    fileManager = "dolphin",
+    fileManager = "thunar",
     menu = "wofi",
     browser = "zen-browser",
     code = "vscodium",

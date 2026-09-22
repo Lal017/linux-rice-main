@@ -10,7 +10,7 @@ set -euo pipefail
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 STOW_PACKAGES=(
-    cava dolphin fastfetch hypr kitty mimeapps starship waybar
+    cava thunar fastfetch hypr kitty mimeapps starship waybar
     wlogout wofi wofi-hidden youtube-music zsh
 )
 

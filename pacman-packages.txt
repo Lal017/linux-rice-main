@@ -10,7 +10,10 @@ wl-clipboard
 less
 openssh
 cava
-dolphin
+thunar
+thunar-archive-plugin
+thunar-volman
+tumbler
 fastfetch
 dunst
 git

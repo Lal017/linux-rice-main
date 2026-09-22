@@ -75,7 +75,7 @@ window#waybar {
 }
 
 #taskbar button.active {
-    background-color: rgb(0, 85, 255);
+    background-color: rgb(0, 50, 150);
     border-radius: 0 20px 0 20px;
 }
 
@@ -90,10 +90,26 @@ window#waybar {
 
 #clock {
     background-color: rgba(0, 61, 193, 0.25);
+    background-image: linear-gradient(rgb(0, 50, 150), rgb(0, 50, 150));
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0% 100%;
     border-radius: 0 10px 0 10px;
     color: white;
     font-size: 18px;
     padding: 0 20px;
+    box-shadow: 0 0 0 0 rgba(0, 50, 150, 1);
+    transition: background-size 200ms ease-in-out,
+                background-color 200ms ease-in-out,
+                padding 200ms ease-in-out,
+                box-shadow 200ms ease-in-out;
+}
+
+#clock:hover {
+    background-color: rgb(0, 50, 150);
+    background-size: 100% 100%;
+    padding: 0px 26px;
+    box-shadow: 0 0 0 3px rgb(0, 50, 150);
 }
 
 /*-------------------------------------*/
@@ -101,8 +117,26 @@ window#waybar {
 
 #toolbar {
     background-color: rgba(0, 61, 193, 0.25);
+    background-image: linear-gradient(rgb(0, 50, 150), rgb(0, 50, 150));
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 0% 100%;
     border-radius: 0 10px 0 10px;
-    padding: 0 10px;
+    color: white;
+    font-size: 18px;
+    padding: 0 7px;
+    box-shadow: 0 0 0 0 rgba(0, 50, 150, 1);
+    transition: background-size 300ms ease-in-out,
+                background-color 300ms ease-in-out,
+                padding 300ms ease-in-out,
+                box-shadow 300ms ease-in-out;
+}
+
+#toolbar:hover {
+    background-color: rgb(0, 50, 150);
+    background-size: 100% 100%;
+    padding: 0px 12px;
+    box-shadow: 0 0 0 3px rgb(0, 50, 150);
 }
 
 #pulseaudio,
@@ -110,7 +144,7 @@ window#waybar {
 #bluetooth,
 #custom-power{
     color: white;
-    padding: 0 10px;
+    padding: 0 8px;
 }
 
 #network,

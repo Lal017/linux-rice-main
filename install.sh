@@ -128,6 +128,37 @@ else
     echo "    aur-packages.txt not found, skipping."
 fi
 
+echo "==> Checking for NVIDIA GPU..."
+nvidia_fix_applied=false
+if lspci | grep -Ei 'vga|3d controller' | grep -qi nvidia; then
+    echo "    NVIDIA GPU detected — applying suspend/resume fix..."
+
+    nvidia_conf="/etc/modprobe.d/nvidia-power-management.conf"
+    if [ -f "$nvidia_conf" ] && grep -q "NVreg_PreserveVideoMemoryAllocations=1" "$nvidia_conf"; then
+        echo "    $nvidia_conf already configured, skipping."
+    else
+        echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" | sudo tee "$nvidia_conf" >/dev/null
+        echo "    Wrote $nvidia_conf"
+        nvidia_fix_applied=true
+    fi
+
+    if systemctl list-unit-files nvidia-suspend.service >/dev/null 2>&1 && \
+       systemctl list-unit-files nvidia-resume.service >/dev/null 2>&1; then
+        if ! systemctl is-enabled --quiet nvidia-suspend.service || ! systemctl is-enabled --quiet nvidia-resume.service; then
+            sudo systemctl enable nvidia-suspend.service nvidia-resume.service
+            echo "    Enabled nvidia-suspend.service and nvidia-resume.service"
+            nvidia_fix_applied=true
+        else
+            echo "    nvidia-suspend/resume services already enabled, skipping."
+        fi
+    else
+        echo "    nvidia-suspend.service/nvidia-resume.service not found on this system — skipping."
+        echo "    (These ship with some NVIDIA driver packages but not others; the modprobe.d fix above still applies.)"
+    fi
+else
+    echo "    No NVIDIA GPU detected, skipping suspend/resume fix."
+fi
+
 echo "==> Checking for stow conflicts..."
 conflict_found=false
 
@@ -168,4 +199,7 @@ echo "==> Done."
 if [ "$conflict_found" = true ]; then
     echo "    Original conflicting files were renamed to <name>_backup next to their original location."
     echo "    A future uninstall script can restore them by unstowing, then renaming <name>_backup back."
+fi
+if [ "$nvidia_fix_applied" = true ]; then
+    echo "    NVIDIA suspend/resume fix applied — reboot for it to take effect."
 fi

@@ -6,19 +6,7 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 1. Clone this repo: `git clone https://github.com/lal017/linux-rice-main.git ~/dotfiles`
 2. `cd ~/dotfiles`
-3. Install packages: `sudo pacman -S --needed - < pacman-packages.txt`
-4. Install AUR packages: `yay -S --needed - < aur-packages.txt`
-5. Check for stow conflicts first: `stow -n -v cava dolphin fastfetch hypr kitty mimeapps starship waybar wlogout wofi wofi-hidden youtube-music zsh` — remove any real files/folders sitting at the target paths before proceeding
-6. Run stow for real: `stow cava dolphin fastfetch hypr kitty mimeapps starship waybar wlogout wofi wofi-hidden youtube-music zsh`
-
-# System-level config NOT covered by dotfiles/stow
-
-These live outside `~/.config` or require root, so they need to be manually reapplied on each new machine:
-
-- **NVIDIA suspend/resume fix** (if machine has NVIDIA GPU):
-    - `/etc/modprobe.d/nvidia-power-management.conf` -> `options nvidia NVreg_PreserveVideoMemoryAllocations=1`
-    - `sudo systemctl enable nvidia-suspend.service nvidia-resume.service`
-    - `sudo mkinitcpio -P` after adding the modprobe option
+3. run the install script `./install.sh`
 
 # Notes
 

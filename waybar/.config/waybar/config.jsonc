@@ -118,7 +118,8 @@
     "custom/cava": {
         "exec": "~/.config/waybar/scripts/cava.sh",
         "format": "{}",
-        "tooltip": false
+        "tooltip": false,
+        "hide-empty-text": true
     },
     "mpris": {
         "format": "{player_icon} {dynamic}",

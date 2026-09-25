@@ -113,6 +113,10 @@ fi
 echo "==> Checking for yay..."
 if ! command -v yay >/dev/null 2>&1; then
     echo "    yay not found, building from AUR..."
+
+    echo "    Ensuring build dependencies are installed..."
+    sudo pacman -S --needed --noconfirm base-devel debugedit
+
     tmpdir="$(mktemp -d)"
     git clone https://aur.archlinux.org/yay.git "$tmpdir/yay"
     (cd "$tmpdir/yay" && makepkg -si --noconfirm)

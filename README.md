@@ -18,8 +18,6 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- fix hypridle bug: when screen turns off for a certain duration the awake comand doesn't work
-- fix cava on waybar module
 - test install and uninstall script on laptop
 - Configure and style dolphin
 - Configure and style SDDM

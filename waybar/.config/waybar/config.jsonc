@@ -117,6 +117,7 @@
     },
     "custom/cava": {
         "exec": "~/.config/waybar/scripts/cava.sh",
+        "restart-interval": 2,
         "format": "{}",
         "tooltip": false,
         "hide-empty-text": true

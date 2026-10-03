@@ -1,13 +1,14 @@
 #!/bin/bash
+export LC_ALL=C.UTF-8   # make ${bars:$h:1} index characters, not bytes
 
 bars="▁▂▃▄▅▆▇█"
 
 counter=0
 player_active=true
 
-stdbuf -oL cava -p ~/.config/cava/waybar.conf | while read -r line; do
+stdbuf -oL cava -p "$HOME/.config/cava/waybar.conf" | while read -r line; do
     counter=$((counter + 1))
-    if [ $((counter % 10)) -eq 0 ]; then
+    if [ $((counter % 30)) -eq 0 ]; then
         if playerctl status &>/dev/null; then
             player_active=true
         else

@@ -12,6 +12,13 @@ require("input")
 require("keybinds")
 require("windowrules")
 
+hl.config({
+    misc = {
+        key_press_enables_dpms = true,
+        mouse_move_enables_dpms = true, 
+    }
+})
+
 
 -----------------------
 ----- PERMISSIONS -----

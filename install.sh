@@ -102,6 +102,9 @@ if [ "$problems_found" = true ]; then
     fi
 fi
 
+echo "==> Updating system (refresh package database and upgrade)..."
+sudo pacman -Syu --noconfirm
+
 echo "==> Installing official packages..."
 if [ -f pacman-packages.txt ]; then
     # yay itself can't come from pacman -S (it's an AUR package), so skip it here
@@ -196,8 +199,10 @@ if [ "$conflict_found" = false ]; then
     echo "    No conflicts found."
 fi
 
+mkdir -p "$HOME/.config"
+
 echo "==> Running stow..."
-stow "${STOW_PACKAGES[@]}"
+stow -R "${STOW_PACKAGES[@]}"
 
 echo "==> Done."
 if [ "$conflict_found" = true ]; then

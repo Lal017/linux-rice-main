@@ -19,9 +19,11 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 # ToDo
 
 - test install and uninstall script on laptop
-- Configure and style dolphin
-- Configure and style SDDM
-- configure and style notifications
+- add applications to pacman/aur list
+- add icon settings to dotfiles
+- Configure and style dolphin and add dotfiles
+- Configure and style SDDM and add dotfiles
+- configure and style notifications and add dotfiles
 - Add dropdown and popup menus to waybar
 - update install script to get a transparent window in zen browser
 - add update script

@@ -18,7 +18,6 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- test install and uninstall script on laptop
 - add applications to pacman/aur list
 - add icon settings to dotfiles
 - Configure and style dolphin and add dotfiles

@@ -173,6 +173,15 @@ else
     echo "    No NVIDIA GPU detected, skipping suspend/resume fix."
 fi
 
+echo "==> Checking login shell..."
+zsh_path="$(command -v zsh)"
+if [ "$SHELL" != "$zsh_path" ]; then
+    chsh -s "$zsh_path"
+    echo "    Login shell set to zsh — log out and back in for it to take effect."
+else
+    echo "    Already using zsh."
+fi
+
 echo "==> Checking for stow conflicts..."
 conflict_found=false
 

@@ -80,6 +80,23 @@ else
     echo "    aur-packages.txt not found, skipping."
 fi
 
+echo "==> Checking for Poiret One font..."
+font_dir="$HOME/.local/share/fonts"
+font_file="$font_dir/PoiretOne-Regular.ttf"
+if [ -f "$font_file" ]; then
+    echo "    Already installed."
+else
+    mkdir -p "$font_dir"
+    if curl -fL --retry 3 -o "$font_file" \
+        "https://github.com/google/fonts/raw/main/ofl/poiretone/PoiretOne-Regular.ttf"; then
+        fc-cache -f "$font_dir"
+        echo "    Installed Poiret One."
+    else
+        rm -f "$font_file"
+        echo "    WARNING: couldn't download Poiret One. hyprlock will fall back to a default font."
+    fi
+fi
+
 echo "==> Previewing stow conflicts (no changes made)..."
 preview_output="$("${STOW[@]}" -R -n -v "${STOW_PACKAGES[@]}" 2>&1 || true)"
 if echo "$preview_output" | grep -q "cannot stow"; then

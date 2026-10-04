@@ -18,7 +18,9 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
+- fix styling mismatch for hyprlock on different machines
 - add applications to pacman/aur list
+- add wallpaper sync between machines
 - add icon settings to dotfiles
 - Configure and style dolphin and add dotfiles
 - Configure and style SDDM and add dotfiles

@@ -8,7 +8,14 @@
 #
 set -euo pipefail
 
+if [ "$EUID" -eq 0 ]; then
+    echo "Don't run this as root or with sudo. It calls sudo itself where needed."
+    exit 1
+fi
+
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+STOW=(stow --no-folding)
 
 STOW_PACKAGES=(
     cava dolphin fastfetch hypr kitty mimeapps starship waybar
@@ -74,7 +81,7 @@ else
 fi
 
 echo "==> Previewing stow conflicts (no changes made)..."
-preview_output="$(stow -n -v "${STOW_PACKAGES[@]}" 2>&1 || true)"
+preview_output="$("${STOW[@]}" -R -n -v "${STOW_PACKAGES[@]}" 2>&1 || true)"
 if echo "$preview_output" | grep -q "cannot stow"; then
     echo "$preview_output" | grep "cannot stow" | sed 's/^/    /'
     echo "    These will be backed up automatically (renamed to <name>_backup) during the real install."
@@ -169,7 +176,7 @@ fi
 echo "==> Checking for stow conflicts..."
 conflict_found=false
 
-dry_run_output="$(stow -n -v "${STOW_PACKAGES[@]}" 2>&1 || true)"
+dry_run_output="$("${STOW[@]}" -R -n -v "${STOW_PACKAGES[@]}" 2>&1 || true)"
 
 while IFS= read -r line; do
     if [[ "$line" == *"cannot stow"* ]]; then
@@ -202,7 +209,7 @@ fi
 mkdir -p "$HOME/.config"
 
 echo "==> Running stow..."
-stow -R "${STOW_PACKAGES[@]}"
+"${STOW[@]}" -R "${STOW_PACKAGES[@]}"
 
 echo "==> Done."
 if [ "$conflict_found" = true ]; then

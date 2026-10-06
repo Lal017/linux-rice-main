@@ -28,6 +28,7 @@ window#waybar {
 
 #workspaces button {
     color: white;
+    background-image: none;
     background-color: transparent;
     padding: 0 3px;
     text-shadow: 0 0 2px currentColor, 0 0 2px currentColor;
@@ -40,6 +41,7 @@ window#waybar {
 
 #workspaces button:hover {
     background-color: white;
+    background-image: none;
     color: black;
     border-radius: 0 20px 0 20px;
 }
@@ -81,6 +83,7 @@ window#waybar {
 
 #taskbar button:hover {
     background-color: white;
+    background-image: none;
     color: black;
     border-radius: 0 20px 0 20px;
 }
@@ -140,6 +143,7 @@ window#waybar {
 }
 
 #pulseaudio,
+#battery,
 #network,
 #bluetooth,
 #custom-power{

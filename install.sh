@@ -20,6 +20,7 @@ STOW=(stow --no-folding)
 STOW_PACKAGES=(
     cava dolphin fastfetch hypr kitty mimeapps starship waybar
     wlogout wofi wofi-hidden youtube-music zsh networkmanager-dmenu
+    gtk
 )
 
 CHECK_ONLY=false
@@ -236,6 +237,20 @@ mkdir -p "$HOME/.config"
 
 echo "==> Running stow..."
 "${STOW[@]}" -R "${STOW_PACKAGES[@]}"
+
+echo "==> Setting dark mode preference..."
+if command -v gsettings >/dev/null 2>&1; then
+    dark_cmd=(gsettings set org.gnome.desktop.interface color-scheme prefer-dark)
+    if [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+        "${dark_cmd[@]}" || echo "    WARNING: gsettings failed."
+    else
+        # Running from a TTY with no session bus, so start a temporary one
+        dbus-run-session -- "${dark_cmd[@]}" || echo "    WARNING: gsettings failed."
+    fi
+    echo "    Set color-scheme to prefer-dark."
+else
+    echo "    gsettings not found, skipping."
+fi
 
 echo "==> Configuring NetworkManager (iwd backend)..."
 nm_conf="/etc/NetworkManager/conf.d/wifi_backend.conf"

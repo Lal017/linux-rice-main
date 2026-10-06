@@ -2,3 +2,4 @@ pear-desktop-bin
 vscodium-bin
 zen-browser-bin
 wlogout
+makemkv

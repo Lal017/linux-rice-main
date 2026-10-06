@@ -18,6 +18,7 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
+- check why hypridle doesn't turn off screen on laptop
 - add applications to pacman/aur list
 - add wallpaper sync between machines
 - add icon settings to dotfiles

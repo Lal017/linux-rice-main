@@ -19,7 +19,7 @@ STOW=(stow --no-folding)
 
 STOW_PACKAGES=(
     cava dolphin fastfetch hypr kitty mimeapps starship waybar
-    wlogout wofi wofi-hidden youtube-music zsh
+    wlogout wofi wofi-hidden youtube-music zsh networkmanager-dmenu
 )
 
 CHECK_ONLY=false
@@ -237,6 +237,39 @@ mkdir -p "$HOME/.config"
 echo "==> Running stow..."
 "${STOW[@]}" -R "${STOW_PACKAGES[@]}"
 
+echo "==> Configuring NetworkManager (iwd backend)..."
+nm_conf="/etc/NetworkManager/conf.d/wifi_backend.conf"
+nm_conf_desired=$'[device]\nwifi.backend=iwd'
+
+if [ -f "$nm_conf" ] && [ "$(cat "$nm_conf")" = "$nm_conf_desired" ]; then
+    echo "    $nm_conf already configured, skipping."
+else
+    sudo mkdir -p /etc/NetworkManager/conf.d
+    printf '%s\n' "$nm_conf_desired" | sudo tee "$nm_conf" >/dev/null
+    echo "    Wrote $nm_conf"
+    network_switch_pending=true
+fi
+
+for svc in iwd.service NetworkManager.service; do
+    if systemctl is-enabled --quiet "$svc"; then
+        echo "    $svc already enabled, skipping."
+    else
+        sudo systemctl enable "$svc"
+        echo "    Enabled $svc"
+        network_switch_pending=true
+    fi
+done
+
+for svc in systemd-networkd.service systemd-networkd.socket; do
+    if systemctl is-enabled --quiet "$svc" 2>/dev/null; then
+        sudo systemctl disable "$svc"
+        echo "    Disabled $svc"
+        network_switch_pending=true
+    else
+        echo "    $svc already disabled, skipping."
+    fi
+done
+
 echo "==> Done."
 if [ "$conflict_found" = true ]; then
     echo "    Original conflicting files were renamed to <name>_backup next to their original location."
@@ -244,4 +277,7 @@ if [ "$conflict_found" = true ]; then
 fi
 if [ "$nvidia_fix_applied" = true ]; then
     echo "    NVIDIA suspend/resume fix applied — reboot for it to take effect."
+fi
+if [ "${network_switch_pending:-false}" = true ]; then
+    echo "    Networking switched to NetworkManager + iwd — reboot to apply (systemd-networkd was disabled)."
 fi

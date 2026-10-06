@@ -33,6 +33,12 @@ unzip
 zip
 grim
 slurp
+gimp
+mkvtoolnix-cli
+mkvtoolnix-gui
+iwd
+networkmanager
+networkmanager-dmenu
 ttf-3270-nerd
 ttf-dejavu
 ttf-liberation

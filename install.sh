@@ -305,6 +305,29 @@ if [ -d "$icon_dir/$icon_name" ]; then
     fi
 fi
 
+echo "==> Syncing wallpapers..."
+wall_dir="$HOME/Pictures/wallpapers"
+wall_url="https://cloud.axistunnel.com/s/SkQ8gqm4PWrRSjj/download"
+
+if compgen -G "$wall_dir/*" >/dev/null; then
+    echo "    Wallpapers already present, skipping."
+else
+    mkdir -p "$wall_dir"
+    wall_tmp="$(mktemp -d)"
+    if curl -fL --retry 3 -o "$wall_tmp/wallpapers.zip" "$wall_url" \
+        && unzip -q -j -o "$wall_tmp/wallpapers.zip" -d "$wall_dir"; then
+        echo "    Downloaded wallpapers."
+        # Restart hyprpaper if it's running so the new images get used right away
+        if pgrep -x hyprpaper >/dev/null; then
+            pkill -x hyprpaper
+            nohup hyprpaper >/dev/null 2>&1 &
+        fi
+    else
+        echo "    WARNING: couldn't download wallpapers."
+    fi
+    rm -rf "$wall_tmp"
+fi
+
 echo "==> Configuring NetworkManager (iwd backend)..."
 nm_conf="/etc/NetworkManager/conf.d/wifi_backend.conf"
 nm_conf_desired=$'[device]\nwifi.backend=iwd'

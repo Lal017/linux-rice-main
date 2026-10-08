@@ -250,62 +250,8 @@ else
     echo "    gsettings not found, skipping."
 fi
 
-echo "==> Installing icon theme (Breeze-Round-Chameleon Dark Icons)..."
-icon_name="Breeze-Round-Chameleon Dark Icons"
-icon_dir="$HOME/.local/share/icons"
-icon_api="https://api.kde-look.org/ocs/v1/content/data/1608771"
-
-if [ -f "$icon_dir/$icon_name/index.theme" ]; then
-    echo "    Already installed."
-else
-    mkdir -p "$icon_dir"
-    icon_tmp="$(mktemp -d)"
-
-    # Ask the store API for a fresh (short-lived) download link
-    icon_url="$(curl -fsSL --retry 3 "$icon_api" \
-        | sed -n 's:.*<downloadlink1>\(.*\)</downloadlink1>.*:\1:p' \
-        | sed 's/&amp;/\&/g' || true)"
-
-    if [ -n "$icon_url" ] \
-        && curl -fL --retry 3 -o "$icon_tmp/icons.tar.xz" "$icon_url" \
-        && tar -xJf "$icon_tmp/icons.tar.xz" -C "$icon_tmp"; then
-        # Find the extracted theme folder (the one containing index.theme)
-        theme_src="$(find "$icon_tmp" -maxdepth 2 -name index.theme -printf '%h\n' | head -n1 || true)"
-        if [ -n "$theme_src" ]; then
-            rm -rf "$icon_dir/$icon_name"
-            cp -a "$theme_src" "$icon_dir/$icon_name"
-            echo "    Installed."
-        else
-            echo "    WARNING: downloaded archive had no icon theme in it. Icons will fall back to the default."
-        fi
-    else
-        echo "    WARNING: couldn't download the icon theme. Icons will fall back to the default."
-    fi
-    rm -rf "$icon_tmp"
-fi
-
-if [ -d "$icon_dir/$icon_name" ]; then
-    echo "==> Setting icon theme..."
-
-    # GTK apps (wofi, etc.)
-    if command -v gsettings >/dev/null 2>&1; then
-        icon_cmd=(gsettings set org.gnome.desktop.interface icon-theme "$icon_name")
-        if [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
-            "${icon_cmd[@]}" || echo "    WARNING: gsettings failed."
-        else
-            dbus-run-session -- "${icon_cmd[@]}" || echo "    WARNING: gsettings failed."
-        fi
-    fi
-
-    # Qt/KDE apps (Dolphin)
-    if command -v kwriteconfig6 >/dev/null 2>&1; then
-        kwriteconfig6 --file kdeglobals --group Icons --key Theme "$icon_name"
-    else
-        echo "    kwriteconfig6 not found, skipping Dolphin icon setting."
-    fi
-fi
-
 echo "==> Syncing wallpapers..."
+
 wall_dir="$HOME/Pictures/wallpapers"
 wall_state="$HOME/.local/state/dotfiles-wallpapers.txt"
 wall_added=false
@@ -318,29 +264,78 @@ if [ -f wallpaper-urls.txt ]; then
         [ -z "$url" ] && continue
         [[ "$url" == \#* ]] && continue
 
-        url="${url%/}"
-        [[ "$url" == */download ]] || url="$url/download"
-
+        # Skip wallpapers that have already been downloaded
         if grep -qxF "$url" "$wall_state"; then
             echo "    Already downloaded: $url"
             continue
         fi
 
-        wall_tmp="$(mktemp -d)"
-        if curl -fL --retry 3 -o "$wall_tmp/w.zip" "$url" \
-            && unzip -q -j -n "$wall_tmp/w.zip" -d "$wall_dir"; then
-            echo "$url" >> "$wall_state"
-            wall_added=true
-            echo "    Downloaded: $url"
+        wall_tmp="$(mktemp)"
+        wall_headers="$(mktemp)"
+
+        if curl -fL --retry 3 \
+            -D "$wall_headers" \
+            -o "$wall_tmp" \
+            "$url"; then
+
+            # Get filename supplied by Nextcloud
+            fname="$(
+                sed -n 's/.*filename="\([^"]*\)".*/\1/ip' "$wall_headers" |
+                tail -n1 |
+                tr -d '\r'
+            )"
+
+            if [ -z "$fname" ]; then
+                echo "    WARNING: Nextcloud did not provide a filename for:"
+                echo "             $url"
+                rm -f "$wall_tmp" "$wall_headers"
+                continue
+            fi
+
+            fname="$(basename "$fname")"
+
+            if mv "$wall_tmp" "$wall_dir/$fname"; then
+                echo "$url" >> "$wall_state"
+                wall_added=true
+                echo "    Downloaded: $fname"
+            else
+                echo "    WARNING: couldn't save $fname"
+                rm -f "$wall_tmp"
+            fi
         else
             echo "    WARNING: couldn't download $url"
+            rm -f "$wall_tmp"
         fi
-        rm -rf "$wall_tmp"
+
+        rm -f "$wall_headers"
+
     done < wallpaper-urls.txt
 
-    # Restart hyprpaper so it picks up the new images
-    if [ "$wall_added" = true ] && pgrep -x hyprpaper >/dev/null; then
-        pkill -x hyprpaper
+    # Configure Hyprpaper
+    hyprpaper_conf="$HOME/.config/hypr/hyprpaper.conf"
+
+    mkdir -p "$(dirname "$hyprpaper_conf")"
+
+    if [ ! -f "$hyprpaper_conf" ]; then
+        cat > "$hyprpaper_conf" <<EOF
+wallpaper {
+    monitor =
+    path = ~/Pictures/wallpapers/clouds.jpg
+    fit_mode = cover
+}
+
+splash = false
+EOF
+    else
+        sed -i 's|^[[:space:]]*path[[:space:]]*=.*|    path = ~/Pictures/wallpapers/clouds.jpg|' "$hyprpaper_conf"
+    fi
+
+    # Restart Hyprpaper if new wallpapers were downloaded
+    if [ "$wall_added" = true ]; then
+        if pgrep -x hyprpaper >/dev/null; then
+            pkill -x hyprpaper
+        fi
+
         nohup hyprpaper >/dev/null 2>&1 &
     fi
 else

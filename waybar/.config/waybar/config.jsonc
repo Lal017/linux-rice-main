@@ -134,6 +134,7 @@
         "status-icons": {
             "paused": "⏸"
         },
+        "dynamic-order": ["title", "artist"],
         "max-length": 40
     },
     "battery": {

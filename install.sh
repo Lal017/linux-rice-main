@@ -18,9 +18,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STOW=(stow --no-folding)
 
 STOW_PACKAGES=(
-    cava dolphin fastfetch hypr kitty mimeapps starship waybar
-    wlogout wofi wofi-hidden youtube-music zsh networkmanager-dmenu
-    gtk
+    cava dolphin hypr terminal waybar wofi youtube-music style
 )
 
 CHECK_ONLY=false
@@ -250,6 +248,48 @@ if command -v gsettings >/dev/null 2>&1; then
     echo "    Set color-scheme to prefer-dark."
 else
     echo "    gsettings not found, skipping."
+fi
+
+echo "==> Installing icon theme (Breeze-Round-Chameleon Dark Icons)..."
+icon_name="Breeze-Round-Chameleon Dark Icons"
+icon_dir="$HOME/.local/share/icons"
+
+if [ -f "$icon_dir/$icon_name/index.theme" ]; then
+    echo "    Already installed."
+else
+    mkdir -p "$icon_dir"
+    icon_tmp="$(mktemp -d)"
+    if git clone --depth 1 --filter=blob:none --sparse \
+            https://github.com/L4ki/Breeze-Chameleon-Icons.git "$icon_tmp/repo" \
+        && git -C "$icon_tmp/repo" sparse-checkout set "$icon_name" \
+        && [ -f "$icon_tmp/repo/$icon_name/index.theme" ]; then
+        cp -r "$icon_tmp/repo/$icon_name" "$icon_dir/"
+        echo "    Installed."
+    else
+        echo "    WARNING: couldn't download the icon theme. Icons will fall back to the default."
+    fi
+    rm -rf "$icon_tmp"
+fi
+
+if [ -d "$icon_dir/$icon_name" ]; then
+    echo "==> Setting icon theme..."
+
+    # GTK apps (wofi, etc.)
+    if command -v gsettings >/dev/null 2>&1; then
+        icon_cmd=(gsettings set org.gnome.desktop.interface icon-theme "$icon_name")
+        if [ -n "${DBUS_SESSION_BUS_ADDRESS:-}" ]; then
+            "${icon_cmd[@]}" || echo "    WARNING: gsettings failed."
+        else
+            dbus-run-session -- "${icon_cmd[@]}" || echo "    WARNING: gsettings failed."
+        fi
+    fi
+
+    # Qt/KDE apps (Dolphin)
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file kdeglobals --group Icons --key Theme "$icon_name"
+    else
+        echo "    kwriteconfig6 not found, skipping Dolphin icon setting."
+    fi
 fi
 
 echo "==> Configuring NetworkManager (iwd backend)..."

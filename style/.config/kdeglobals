@@ -1,0 +1,9 @@
+[Icons]
+Theme=Breeze-Round-Chameleon Dark Icons
+
+[PreviewSettings]
+EnableRemoteFolderThumbnail=false
+MaximumRemoteSize=0
+
+[UiSettings]
+ColorScheme=BreezePurple

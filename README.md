@@ -20,11 +20,10 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 - add applications to pacman/aur list
 - add wallpaper sync between machines
-- add icon settings to dotfiles
+- re-color waybar and animation style
 - Configure and style dolphin and add dotfiles
 - Configure and style SDDM and add dotfiles
 - configure and style notifications and add dotfiles
-- Add dropdown and popup menus to waybar
-- update install script to get a transparent window in zen browser
-- add update script
+- Add and style more dropdown and popup menus to waybar
+- add update script?
 - switch wofi for rofi?

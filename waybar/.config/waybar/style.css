@@ -1,3 +1,6 @@
+@define-color glass-background rgba(0, 61, 193, 0.25);
+@define-color focus-background rgb(255,255,255);
+
 * {
     font-family: "ZedMono Nerd Font";
     font-size: 17px;
@@ -92,8 +95,8 @@ window#waybar {
 /* CLOCK */
 
 #clock {
-    background-color: rgba(0, 61, 193, 0.25);
-    background-image: linear-gradient(rgb(0, 50, 150), rgb(0, 50, 150));
+    background-color: @glass-background;
+    background-image: linear-gradient(@focus-background, @focus-background);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 0% 100%;
@@ -101,7 +104,7 @@ window#waybar {
     color: white;
     font-size: 18px;
     padding: 0 20px;
-    box-shadow: 0 0 0 0 rgba(0, 50, 150, 1);
+    box-shadow: 0 0 0 0 @focus-background;
     transition: background-size 200ms ease-in-out,
                 background-color 200ms ease-in-out,
                 padding 200ms ease-in-out,
@@ -109,18 +112,19 @@ window#waybar {
 }
 
 #clock:hover {
-    background-color: rgb(0, 50, 150);
+    background-color: @focus-background;
+    color: black;
     background-size: 100% 100%;
     padding: 0px 26px;
-    box-shadow: 0 0 0 3px rgb(0, 50, 150);
+    box-shadow: 0 0 0 3px @focus-background;
 }
 
 /*-------------------------------------*/
 /* TOOLBAR */
 
 #toolbar {
-    background-color: rgba(0, 61, 193, 0.25);
-    background-image: linear-gradient(rgb(0, 50, 150), rgb(0, 50, 150));
+    background-color: @glass-background;
+    background-image: linear-gradient(@focus-background, @focus-background);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 0% 100%;
@@ -136,10 +140,18 @@ window#waybar {
 }
 
 #toolbar:hover {
-    background-color: rgb(0, 50, 150);
+    background-color: @focus-background;
     background-size: 100% 100%;
     padding: 0px 12px;
-    box-shadow: 0 0 0 3px rgb(0, 50, 150);
+    box-shadow: 0 0 0 3px @focus-background;
+}
+
+#toolbar:hover #pulseaudio,
+#toolbar:hover #battery,
+#toolbar:hover #network,
+#toolbar:hover #bluetooth,
+#toolbar:hover #custom-power {
+    color: black;
 }
 
 #pulseaudio,
@@ -151,13 +163,10 @@ window#waybar {
     padding: 0 8px;
 }
 
+#pulseaudio,
 #network,
 #custom-power {
     font-size: 17px;
-}
-
-#pulseaudio {
-    font-size: 12px;
 }
 
 #bluetooth {

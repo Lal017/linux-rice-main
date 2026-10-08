@@ -25,7 +25,6 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- add wallpaper sync between machines
 - re-color waybar and animation style
 - Configure and style dolphin and add dotfiles
 - Configure and style SDDM and add dotfiles

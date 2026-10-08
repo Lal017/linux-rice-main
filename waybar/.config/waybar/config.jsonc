@@ -93,7 +93,7 @@
         "on-click": "networkmanager_dmenu"
     },
     "pulseaudio": {
-        "format": "<span color='#ffffff' size='x-large'>{volume}%</span> <span color='#ffffff' size='xx-large'>{icon}</span>",
+        "format": "{volume}% <span size='large'>{icon}</span>",
         "format-bluetooth": "{volume}% {icon}",
         "format-muted": "",
         "format-icons": {

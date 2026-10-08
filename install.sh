@@ -307,25 +307,41 @@ fi
 
 echo "==> Syncing wallpapers..."
 wall_dir="$HOME/Pictures/wallpapers"
-wall_url="https://cloud.axistunnel.com/s/SkQ8gqm4PWrRSjj/download"
+wall_state="$HOME/.local/state/dotfiles-wallpapers.txt"
+wall_added=false
 
-if compgen -G "$wall_dir/*" >/dev/null; then
-    echo "    Wallpapers already present, skipping."
-else
-    mkdir -p "$wall_dir"
-    wall_tmp="$(mktemp -d)"
-    if curl -fL --retry 3 -o "$wall_tmp/wallpapers.zip" "$wall_url" \
-        && unzip -q -j -o "$wall_tmp/wallpapers.zip" -d "$wall_dir"; then
-        echo "    Downloaded wallpapers."
-        # Restart hyprpaper if it's running so the new images get used right away
-        if pgrep -x hyprpaper >/dev/null; then
-            pkill -x hyprpaper
-            nohup hyprpaper >/dev/null 2>&1 &
+if [ -f wallpaper-urls.txt ]; then
+    mkdir -p "$wall_dir" "$(dirname "$wall_state")"
+    touch "$wall_state"
+
+    while read -r url || [ -n "$url" ]; do
+        [ -z "$url" ] && continue
+        [[ "$url" == \#* ]] && continue
+
+        if grep -qxF "$url" "$wall_state"; then
+            echo "    Already downloaded: $url"
+            continue
         fi
-    else
-        echo "    WARNING: couldn't download wallpapers."
+
+        wall_tmp="$(mktemp -d)"
+        if curl -fL --retry 3 -o "$wall_tmp/w.zip" "$url" \
+            && unzip -q -j -n "$wall_tmp/w.zip" -d "$wall_dir"; then
+            echo "$url" >> "$wall_state"
+            wall_added=true
+            echo "    Downloaded: $url"
+        else
+            echo "    WARNING: couldn't download $url"
+        fi
+        rm -rf "$wall_tmp"
+    done < wallpaper-urls.txt
+
+    # Restart hyprpaper so it picks up the new images
+    if [ "$wall_added" = true ] && pgrep -x hyprpaper >/dev/null; then
+        pkill -x hyprpaper
+        nohup hyprpaper >/dev/null 2>&1 &
     fi
-    rm -rf "$wall_tmp"
+else
+    echo "    wallpaper-urls.txt not found, skipping."
 fi
 
 echo "==> Configuring NetworkManager (iwd backend)..."

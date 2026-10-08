@@ -318,6 +318,9 @@ if [ -f wallpaper-urls.txt ]; then
         [ -z "$url" ] && continue
         [[ "$url" == \#* ]] && continue
 
+        url="${url%/}"
+        [[ "$url" == */download ]] || url="$url/download"
+
         if grep -qxF "$url" "$wall_state"; then
             echo "    Already downloaded: $url"
             continue

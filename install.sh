@@ -253,18 +253,31 @@ fi
 echo "==> Installing icon theme (Breeze-Round-Chameleon Dark Icons)..."
 icon_name="Breeze-Round-Chameleon Dark Icons"
 icon_dir="$HOME/.local/share/icons"
+icon_api="https://api.kde-look.org/ocs/v1/content/data/1608771"
 
 if [ -f "$icon_dir/$icon_name/index.theme" ]; then
     echo "    Already installed."
 else
     mkdir -p "$icon_dir"
     icon_tmp="$(mktemp -d)"
-    if git clone --depth 1 --filter=blob:none --sparse \
-            https://github.com/L4ki/Breeze-Chameleon-Icons.git "$icon_tmp/repo" \
-        && git -C "$icon_tmp/repo" sparse-checkout set "$icon_name" \
-        && [ -f "$icon_tmp/repo/$icon_name/index.theme" ]; then
-        cp -r "$icon_tmp/repo/$icon_name" "$icon_dir/"
-        echo "    Installed."
+
+    # Ask the store API for a fresh (short-lived) download link
+    icon_url="$(curl -fsSL --retry 3 "$icon_api" \
+        | sed -n 's:.*<downloadlink1>\(.*\)</downloadlink1>.*:\1:p' \
+        | sed 's/&amp;/\&/g' || true)"
+
+    if [ -n "$icon_url" ] \
+        && curl -fL --retry 3 -o "$icon_tmp/icons.tar.xz" "$icon_url" \
+        && tar -xJf "$icon_tmp/icons.tar.xz" -C "$icon_tmp"; then
+        # Find the extracted theme folder (the one containing index.theme)
+        theme_src="$(find "$icon_tmp" -maxdepth 2 -name index.theme -printf '%h\n' | head -n1 || true)"
+        if [ -n "$theme_src" ]; then
+            rm -rf "$icon_dir/$icon_name"
+            cp -a "$theme_src" "$icon_dir/$icon_name"
+            echo "    Installed."
+        else
+            echo "    WARNING: downloaded archive had no icon theme in it. Icons will fall back to the default."
+        fi
     else
         echo "    WARNING: couldn't download the icon theme. Icons will fall back to the default."
     fi

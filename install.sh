@@ -342,6 +342,11 @@ else
     echo "    wallpaper-urls.txt not found, skipping."
 fi
 
+echo "==> Changing absolute paths to active user..."
+
+sed -i --follow-symlinks "s|^color_scheme_path=.*|color_scheme_path=$HOME/.config/qt6ct/style-colors.conf|" ~/.config/qt6ct/qt6ct.conf
+sed -i --follow-symlinks "s|file:///home/[^/\"]*|file://$HOME|g" ~/.local/share/user-places.xbel
+
 echo "==> Configuring NetworkManager (iwd backend)..."
 nm_conf="/etc/NetworkManager/conf.d/wifi_backend.conf"
 nm_conf_desired=$'[device]\nwifi.backend=iwd'

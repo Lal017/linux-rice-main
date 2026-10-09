@@ -25,10 +25,11 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- re-color waybar and animation style
-- Configure and style dolphin and add dotfiles
+- add dolphins dotfiles qt6 qt5 and kvantum also add kv glass to install script to download and install
 - Configure and style SDDM and add dotfiles
 - configure and style notifications and add dotfiles
 - Add and style more dropdown and popup menus to waybar
+- restyle waybar and colors
+- restyle wlogout
 - add update script?
 - switch wofi for rofi?

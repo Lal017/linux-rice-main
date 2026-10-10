@@ -25,8 +25,7 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- add dolphins dotfiles qt6 qt5 and kvantum also add kv glass to install script to download and install
-- Configure and style SDDM and add dotfiles
+- restyle hyprlock to look simpler
 - configure and style notifications and add dotfiles
 - Add and style more dropdown and popup menus to waybar
 - restyle waybar and colors

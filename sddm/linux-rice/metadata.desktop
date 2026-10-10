@@ -1,0 +1,11 @@
+[SddmGreeterTheme]
+Name=linux-rice
+Description=Custom Arch linux rice SDDM login screen
+Author=lalo
+Version=1.0
+Type=sddm-theme
+MainScript=Main.qml
+ConfigFile=theme.conf
+Theme-Id=linux-rice
+Theme-API=2.0
+QtVersion=6

@@ -158,6 +158,75 @@ else
     echo "    aur-packages.txt not found, skipping."
 fi
 
+echo "==> Installing SDDM theme..."
+sddm_src="$DOTFILES_DIR/sddm/linux-rice"
+theme_dst="/usr/share/sddm/themes/linux-rice"
+theme_conf_desired=$'[Theme]\nCurrent=linux-rice'
+
+if [ -d "$sddm_src" ]; then
+    # Copy theme files first (so $theme_dst exists), skipping if unchanged
+    diff_excludes=()
+    if [ -f "$DOTFILES_DIR/sddm-assets.txt" ]; then
+        while read -r name url || [ -n "$name" ]; do
+            [ -z "$name" ] && continue
+            [[ "$name" == \#* ]] && continue
+            diff_excludes+=(-x "$name")
+        done < "$DOTFILES_DIR/sddm-assets.txt"
+    fi
+
+    if [ -d "$theme_dst" ] && diff -rq "${diff_excludes[@]}" "$sddm_src" "$theme_dst" >/dev/null 2>&1; then
+        echo "    Theme files already up to date, skipping copy."
+    else
+        sudo mkdir -p "$theme_dst"
+        sudo cp -r "$sddm_src/." "$theme_dst/"
+        echo "    Installed linux-rice theme files."
+    fi
+
+    # Download large/personal assets straight into the installed theme
+    if [ -f "$DOTFILES_DIR/sddm-assets.txt" ]; then
+        while read -r name url || [ -n "$name" ]; do
+            [ -z "$name" ] && continue
+            [[ "$name" == \#* ]] && continue
+
+            if [ -f "$theme_dst/$name" ]; then
+                echo "    Already have $name"
+                continue
+            fi
+
+            asset_tmp="$(mktemp)"
+            if curl -fL --retry 3 -o "$asset_tmp" "$url" \
+               && ! file --mime-type -b "$asset_tmp" | grep -q '^text/'; then
+                sudo install -m 644 "$asset_tmp" "$theme_dst/$name"
+                echo "    Downloaded $name"
+            else
+                echo "    WARNING: couldn't download $name (bad link?)"
+            fi
+            rm -f "$asset_tmp"
+        done < "$DOTFILES_DIR/sddm-assets.txt"
+    else
+        echo "    sddm-assets.txt not found, skipping asset downloads."
+    fi
+
+    if [ -f /etc/sddm.conf.d/theme.conf ] && [ "$(cat /etc/sddm.conf.d/theme.conf)" = "$theme_conf_desired" ]; then
+        echo "    Active theme already set, skipping."
+    else
+        sudo mkdir -p /etc/sddm.conf.d
+        printf '%s\n' "$theme_conf_desired" | sudo tee /etc/sddm.conf.d/theme.conf >/dev/null
+        echo "    Set linux-rice as the active theme."
+    fi
+
+    if ! systemctl is-enabled --quiet sddm.service 2>/dev/null; then
+        if sudo systemctl enable sddm.service; then
+            echo "    Enabled sddm.service"
+            sddm_enabled_now=true
+        else
+            echo "    WARNING: couldn't enable sddm (another display manager enabled?)."
+        fi
+    fi
+else
+    echo "    sddm/linux-rice not found, skipping."
+fi
+
 echo "==> Checking for NVIDIA GPU..."
 nvidia_fix_applied=false
 if lspci | grep -Ei 'vga|3d controller' | grep -qi nvidia; then
@@ -390,4 +459,7 @@ if [ "$nvidia_fix_applied" = true ]; then
 fi
 if [ "${network_switch_pending:-false}" = true ]; then
     echo "    Networking switched to NetworkManager + iwd — reboot to apply (systemd-networkd was disabled)."
+fi
+if [ "${sddm_enabled_now:-false}" = true ]; then
+    echo "    SDDM enabled — reboot to see the login screen."
 fi

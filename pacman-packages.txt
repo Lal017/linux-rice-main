@@ -5,6 +5,11 @@ kvantum
 kvantum-qt5
 qt5-wayland
 qt6-wayland
+qt6-multimedia
+qt6-multimedia-ffmpeg
+qt6-svg
+qt6-declarative
+file
 pipewire
 pipewire-pulse
 wireplumber

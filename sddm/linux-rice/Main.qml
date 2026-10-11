@@ -18,6 +18,11 @@ Rectangle {
         source: "PoiretOne-Regular.ttf"
     }
 
+    FontLoader {
+        id: bebas
+        source: "BebasNeue-Regular.otf"
+    }
+
     Timer {
         interval: 1000
         running: true
@@ -91,14 +96,26 @@ Rectangle {
 
         Column {
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: 0
+            spacing: -40
 
-            Text {
+            Column {
                 anchors.horizontalCenter: parent.horizontalCenter
-                text: Qt.formatTime(root.now, "h:mm AP")
-                color: config.text
-                font.family: poiret.name
-                font.pixelSize: 96 * root.s
+                spacing: -80
+
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: Qt.formatTime(root.now, "hh AP").split(" ")[0]
+                    color: config.text
+                    font.family: bebas.name
+                    font.pixelSize: 180 * root.s
+                }
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: Qt.formatTime(root.now, "mm")
+                    color: config.text
+                    font.family: bebas.name
+                    font.pixelSize: 180 * root.s
+                }
             }
 
             Text {
@@ -113,7 +130,7 @@ Rectangle {
         // gap between time/date and icon
         Item {
             width: 1
-            height: 80 * root.s
+            height: 40 * root.s
         }
 
         Item {

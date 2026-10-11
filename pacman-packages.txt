@@ -46,6 +46,8 @@ slurp
 gimp
 mkvtoolnix-cli
 mkvtoolnix-gui
+playerctl
+imagemagick
 iwd
 networkmanager
 networkmanager-dmenu

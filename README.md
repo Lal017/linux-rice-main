@@ -25,10 +25,10 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- restyle hyprlock to look simpler
 - configure and style notifications and add dotfiles
 - Add and style more dropdown and popup menus to waybar
-- restyle waybar and colors
+- add logout option to wlogout
 - restyle wlogout
+- restyle waybar and colors
 - add update script?
 - switch wofi for rofi?

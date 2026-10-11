@@ -3,3 +3,4 @@ vscodium-bin
 zen-browser-bin
 wlogout
 makemkv
+otf-bebas-neue-git

@@ -51,7 +51,7 @@
     "custom/power": {
         "format": "⏻",
         "tooltip": false,
-        "on-click": "wlogout"
+        "on-click": "wlogout --buttons-per-row 4"
     },
     "clock": {
         "format": "{:%I:%M %p}",

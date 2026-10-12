@@ -8,35 +8,54 @@ window {
 }
 
 button, button:focus {
-    border-radius: 1%;
+    border-radius: 0%;
     border-color: rgba(255, 255, 255, 0.25);
 	text-decoration-color: #FFFFFF;
 	background-color: rgba(12, 12, 12, 0.7);
 	border-style: solid;
-	border-width: 1px;
+	border-width: 0px;
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: 25%;
-	margin: 0 5px;
+	margin: 75px 0;
 	font-size: 25px;
 	color: white;
+	transition: margin 0.2s ease, font-size 0.2s ease, background-size 0.2s ease;
 }
 
 button:active, button:hover {
 	background-color: rgba(20, 20, 20, 0.9);
 	outline-style: none;
 	border-color: white;
-	border-width: 1px;
+	border-width: 2px;
+	margin: 0 0;
+	background-size: 35%;
+	font-size: 35px;
 }
 
 #lock {
-    background-image: image(url("/usr/share/wlogout/icons/lock.png"), url("/usr/local/share/wlogout/icons/lock.png"));
+    background-image: image(url("/home/lalo/.config/wlogout/icons/lock.png"));
+	border-top-right-radius: 50px;
+	border-bottom-right-radius: 50px;
 }
 
 #shutdown {
-    background-image: image(url("/usr/share/wlogout/icons/shutdown.png"), url("/usr/local/share/wlogout/icons/shutdown.png"));
+    background-image: image(url('/home/lalo/.config/wlogout/icons/power.png'));
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
 }
 
 #reboot {
-    background-image: image(url("/usr/share/wlogout/icons/reboot.png"), url("/usr/local/share/wlogout/icons/reboot.png"));
+    background-image: image(url('/home/lalo/.config/wlogout/icons/refresh.png'));
+}
+
+#logout {
+	background-image: image(url('/home/lalo/.config/wlogout/icons/door-exit.png'));
+}
+
+#lock:hover,
+#shutdown:hover,
+#reboot:hover,
+#logout:hover {
+    background-color: rgba(155,155,155,0.1);
 }

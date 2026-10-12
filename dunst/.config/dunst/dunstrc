@@ -1,0 +1,45 @@
+[global]
+    monitor = 0
+    follow = mouse
+    width = (350, 500)
+    origin = top-right
+    offset = 20x20
+    notification_limit = 5
+    gap_size = 10
+
+    padding = 20
+    horizontal_padding = 16
+    frame_width = 1
+    frame_color = "#ffffff"
+    corner_radius = 10
+
+    font = Poiret One 14
+    format = "<b>%a</b>\n\n<b><i>%s</i></b>\n%b"
+    show_indicators = no
+    alignment = left
+
+    icon_position = left
+    max_icon_size = 80
+
+    mouse_left_click = close_current
+    mouse_right_click = close_all
+
+[urgency_low]
+    background = "#77777725"
+    foreground = "#aaaaaa"
+    timeout = 5
+
+[urgency_normal]
+    background = "#77777725"
+    foreground = "#ffffff"
+    timeout = 8
+
+[urgency_critical]
+    background = "#b4282850"
+    foreground = "#ffffff"
+    frame_color = "#ff5555"
+    timeout = 0
+
+[youtube-music]
+    appname = "*youtube*music*"
+    format = "<b>YouTube Music</b>\n\n<b><i>%s</i></b>\n%b"

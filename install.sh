@@ -18,7 +18,7 @@ DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 STOW=(stow --no-folding)
 
 STOW_PACKAGES=(
-    cava dolphin hypr terminal waybar wofi youtube-music style
+    cava dolphin hypr terminal waybar wofi youtube-music style dunst
 )
 
 CHECK_ONLY=false

@@ -70,6 +70,12 @@ hl.layer_rule({
     blur = true,
 })
 
+hl.layer_rule({
+    name = "dunst-blur",
+    match = { namespace = "notifications" },
+    blur = true,
+    ignore_alpha = 0.1,
+})
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })

@@ -137,13 +137,16 @@
         "max-length": 40
     },
     "battery": {
-        "format": "{icon} {capacity}%",
-        "format-charging": "󰂄 {capacity}%",
-        "format-plugged": "󰚥 {capacity}%",
-        "format-icons": ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"],
+        "format": "{icon}",
+        "format-charging": "{icon}",
+        "format-icons": {
+            "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+            "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"]
+        },
         "states": {
             "warning": 30,
             "critical": 15
-        }
+        },
+        "interval": 30
     }
 }

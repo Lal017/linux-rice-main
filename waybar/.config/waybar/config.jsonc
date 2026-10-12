@@ -139,6 +139,7 @@
     "battery": {
         "format": "{icon}",
         "format-charging": "{icon}",
+        "tooltip-format": "{capacity}% - {timeTo}",
         "format-icons": {
             "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
             "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],

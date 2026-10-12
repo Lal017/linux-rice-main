@@ -34,23 +34,23 @@ button:active, button:hover {
 }
 
 #lock {
-    background-image: image(url("/home/lalo/.config/wlogout/icons/lock.png"));
+    background-image: image(url("icons/lock.png"));
 	border-top-right-radius: 50px;
 	border-bottom-right-radius: 50px;
 }
 
 #shutdown {
-    background-image: image(url('/home/lalo/.config/wlogout/icons/power.png'));
+    background-image: image(url('icons/power.png'));
 	border-top-left-radius: 50px;
 	border-bottom-left-radius: 50px;
 }
 
 #reboot {
-    background-image: image(url('/home/lalo/.config/wlogout/icons/refresh.png'));
+    background-image: image(url('icons/refresh.png'));
 }
 
 #logout {
-	background-image: image(url('/home/lalo/.config/wlogout/icons/door-exit.png'));
+	background-image: image(url('icons/door-exit.png'));
 }
 
 #lock:hover,

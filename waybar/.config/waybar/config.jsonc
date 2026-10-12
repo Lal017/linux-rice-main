@@ -25,7 +25,7 @@
     "group/toolbar": {
         "orientation": "horizontal",
         "modules": [
-            "pulseaudio",
+            "group/volume",
             "battery",
             "network",
             "custom/power"
@@ -91,24 +91,32 @@
         "max-length": 50,
         "on-click": "networkmanager_dmenu"
     },
+    "group/volume": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "transition-left-to-right": false,
+            "click-to-reveal": false
+        },
+        "modules": ["pulseaudio", "pulseaudio/slider"]
+    },
+
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "horizontal"
+    },
     "pulseaudio": {
-        "format": "<span size='large'>{icon}</span>  {volume}%",
-        "format-bluetooth": "{volume}% {icon}",
-        "format-muted": "",
+        "format": "<span size='large'>{icon}</span>",
+        "format-muted": "",
         "format-icons": {
-            "alsa_output.pci-0000_00_1f.3.analog-stereo": "",
-            "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
             "headphone": "",
-            "hands-free": "󰂑",
-            "headset": "󰂑",
-            "phone": "",
-            "phone-muted": "",
-            "portable": "",
-            "car": "",
-            "default": ["", ""]
+            "headset": "󰋎",
+            "default": ["", "", "", ""]
         },
         "scroll-step": 1,
-        "on-click": "pavucontrol"
+        "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+        "on-click-right": "pavucontrol"
     },
     "wlr/taskbar": {
         "format": "{icon}",

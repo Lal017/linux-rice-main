@@ -153,9 +153,42 @@ window#waybar {
     color: black;
 }
 
+#pulseaudio-slider slider {
+    min-height: 14px;
+    min-width: 14px;
+    opacity: 1;                            /* was 0, which hides the knob */
+    background-color: #000000;             /* knob color */
+    background-image: none;
+    border-radius: 100%;                   /* keeps it round */
+    box-shadow: none;
+}
+
+#pulseaudio-slider trough {
+    min-height: 8px;
+    min-width: 150px;
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
+}
+
+#pulseaudio-slider highlight {
+    min-width: 8px;
+    border-radius: 8px;
+    background-color: rgb(0, 0, 0);
+}
+
 #pulseaudio,
 #battery {
     padding-left: 8px;
+    padding-right: 10px;
+}
+
+#volume:hover #pulseaudio
+#volume:hover #pulseaudio-slider {
+    padding-left: 0;
+}
+
+#pulseaudio-slider {
+    padding-right: 10px;
 }
 
 #custom-power {

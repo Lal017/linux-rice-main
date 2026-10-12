@@ -13,6 +13,7 @@ file
 pipewire
 pipewire-pulse
 wireplumber
+pavucontrol
 xdg-desktop-portal-hyprland
 xdg-utils
 imv

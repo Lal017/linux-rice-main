@@ -25,9 +25,7 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- configure and style notifications and add dotfiles
 - Add and style more dropdown and popup menus to waybar
-- add logout option to wlogout
 - check why waybar sometimes fails
 - restyle waybar and colors
 - add update script?

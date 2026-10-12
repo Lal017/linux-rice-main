@@ -35,7 +35,6 @@ mpv
 sddm
 starship
 stow
-waybar
 wofi
 zsh
 zsh-autosuggestions

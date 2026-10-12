@@ -131,7 +131,7 @@ window#waybar {
     border-radius: 0 10px 0 10px;
     color: white;
     font-size: 18px;
-    padding: 0 7px;
+    padding: 0 8px;
     box-shadow: 0 0 0 0 rgba(0, 50, 150, 1);
     transition: background-size 300ms ease-in-out,
                 background-color 300ms ease-in-out,
@@ -149,16 +149,20 @@ window#waybar {
 #toolbar:hover #pulseaudio,
 #toolbar:hover #battery,
 #toolbar:hover #network,
-#toolbar:hover #bluetooth,
 #toolbar:hover #custom-power {
     color: black;
 }
 
-#pulseaudio,
-#battery,
+#pulseaudio {
+    padding-left: 8px;
+}
+
+#custom-power {
+    margin-right: 8px;
+}
+
 #network,
-#bluetooth,
-#custom-power{
+#custom-power {
     color: white;
     padding: 0 8px;
 }
@@ -167,10 +171,6 @@ window#waybar {
 #network,
 #custom-power {
     font-size: 17px;
-}
-
-#bluetooth {
-    font-size: 19px;
 }
 
 /*----------------------------------------*/

@@ -28,7 +28,6 @@
             "pulseaudio",
             "battery",
             "network",
-            "bluetooth",
             "custom/power"
         ]
     },
@@ -93,7 +92,7 @@
         "on-click": "networkmanager_dmenu"
     },
     "pulseaudio": {
-        "format": "<span size='large'>{icon}</span> {volume}%",
+        "format": "<span size='large'>{icon}</span>  {volume}%",
         "format-bluetooth": "{volume}% {icon}",
         "format-muted": "",
         "format-icons": {

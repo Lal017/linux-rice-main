@@ -96,23 +96,23 @@ Rectangle {
 
         Column {
             anchors.horizontalCenter: parent.horizontalCenter
-            spacing: -40
+            spacing: -40 * root.s
 
             Column {
                 anchors.horizontalCenter: parent.horizontalCenter
-                spacing: -80
+                spacing: -80 * root.s
 
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: Qt.formatTime(root.now, "hh AP").split(" ")[0]
-                    color: config.text
+                    color: config.time
                     font.family: bebas.name
                     font.pixelSize: 180 * root.s
                 }
                 Text {
                     anchors.horizontalCenter: parent.horizontalCenter
                     text: Qt.formatTime(root.now, "mm")
-                    color: config.text
+                    color: config.time
                     font.family: bebas.name
                     font.pixelSize: 180 * root.s
                 }

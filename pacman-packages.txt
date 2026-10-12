@@ -48,6 +48,7 @@ mkvtoolnix-cli
 mkvtoolnix-gui
 playerctl
 imagemagick
+perl
 iwd
 networkmanager
 networkmanager-dmenu

@@ -3,5 +3,4 @@ vscodium-bin
 zen-browser-bin
 wlogout
 makemkv
-waybar-git
 otf-bebas-neue-git

@@ -25,8 +25,5 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- Add and style more dropdown and popup menus to waybar
-- check why waybar sometimes fails
-- restyle waybar and colors
 - add update script?
 - switch wofi for rofi?

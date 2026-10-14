@@ -59,5 +59,12 @@ hl.layer_rule({
 hl.layer_rule({
     match = { namespace = "waybar" },
     blur = true,
-    ignore_alpha = 0.05,
+    ignore_alpha = 0.1,
+})
+
+hl.layer_rule({
+    name = "waybar-popup-blur",
+    match = { namespace = "waybar" },
+    blur_popups = true,
+    ignore_alpha = 0.1,
 })

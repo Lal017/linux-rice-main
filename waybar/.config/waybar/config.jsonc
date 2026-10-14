@@ -3,9 +3,9 @@
     //"layer": "top", // Waybar at top layer
     // "output": "", //outputs to all monitors by default
     "position": "top", // Waybar position (top|bottom|left|right)
-    //"height": 46, // Waybar height (to be removed for auto height)
+    "height": 41,
     // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
+    "spacing": 5, // Gaps between modules (4px)
     "margin-top": 10,
     "margin-left": 0,
     "margin-right": 0,
@@ -41,51 +41,45 @@
     "hyprland/workspaces": {
         "format": "{icon}",
         "format-icons": {
-            "active": "⦿",
-            "default": "○"
+            "active": "",
+            "default": ""
         },
         "sort-by-number": true,
         "all-outputs": true
     },
     "custom/power": {
-        "format": "⏻",
+        "format": "⭘",
         "tooltip": false,
         "on-click": "wlogout --buttons-per-row 4"
     },
     "clock": {
         "format": "{:%I:%M %p}",
-        "format-alt": "{:%Y-%m-%d}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format-alt": "{:%A, %e %B}",
+        "tooltip-format": "<big>{calendar}</big>",
+        "actions": {
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down",
+            "on-click-middle": "shift_reset"
+        },
         "calendar": {
             "mode": "month",
-            "weeks-pos": "right",
             "on-scroll": 1,
             "format": {
-                "months": "<span color='#ffead3'><b>{}</b></span>",
-                "days": "<span color='#ecc6d9'><b>{}</b></span>",
-                "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
-                "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+                "months": "<b>{}</b>",
+                "days": "{}",
+                "weekdays": "<i>{}</i>",
+                "today": "<span color='#4274ff'><b><u>{}</u></b></span>"
             }
         }
     },
-    "bluetooth": {
-        "format": "",
-        "format-connected": " {device_alias}",
-        "format-connected-battery": " {device_alias} {device_battery_percentage}%",
-        // "format-device-preference": [ "device1", "device2" ], // preference list deciding the displayed device
-        "tooltip-format": "{controller_alias}\n\n{num_connections} connected",
-        "tooltip-format-connected": "{controller_alias}\n\n{num_connections} connected\n\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}\t",
-        "tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_battery_percentage}%"
-    },
     "network": {
-        "interface": "wlan0",
         "format": "{ifname}",
-        "format-wifi": "",
+        "format-wifi": "{icon}",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
         "format-ethernet": "{ifname} ",
-        "format-disconnected": "",
+        "format-disconnected": "󰤮",
         "tooltip-format": "{ifname}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
+        "tooltip-format-wifi": "{essid}\n\n{icon}  {signalStrength}%",
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50,
@@ -107,16 +101,17 @@
         "orientation": "horizontal"
     },
     "pulseaudio": {
-        "format": "<span size='large'>{icon}</span>",
+        "format": "{icon}",
         "format-muted": "",
         "format-icons": {
             "headphone": "",
             "headset": "󰋎",
             "default": ["", "", "", ""]
         },
+        "tooltip-format": "{desc}\n\n{icon}  {volume}%",
         "scroll-step": 1,
         "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
-        "on-click-right": "pavucontrol"
+        "on-click-right": "pavucontrol -t 3"
     },
     "wlr/taskbar": {
         "format": "{icon}",

@@ -1,14 +1,13 @@
-@define-color glass-background rgba(0, 61, 193, 0.25);
-@define-color focus-background rgb(255,255,255);
+@define-color glass-background rgba(100, 100, 100, 0.11); 
+@define-color focus-background rgba(0, 0, 0, 0.3);
+@define-color glass-border rgba(255, 255, 255, 0.15);
 
 * {
-    font-family: "Zed Mono Nerd Font";
-    font-size: 17px;
+    font-family: "ZedMono Nerd Font Propo";
 }
 
 window#waybar {
     background-color: transparent;
-    border-radius: 15px;
 }
 
 /*---------------------------------------*/
@@ -23,56 +22,12 @@ window#waybar {
 }
 
 /*---------------------------------------*/
-/* WORKSPACES */
-
-#workspaces {
-    background-color: transparent;
-}
+/* WORKSPACES + TASKBAR */
 
 #workspaces button {
     color: white;
-    background-image: none;
-    background-color: transparent;
-    padding: 0 3px;
-    text-shadow: 0 0 2px currentColor, 0 0 2px currentColor;
-}
-
-#workspaces button.active {
-    color: white;
-    background-color: transparent;
-}
-
-#workspaces button:hover {
-    background-color: white;
-    background-image: none;
-    color: black;
-    border-radius: 0 20px 0 20px;
-}
-
-/*-------------------------------------*/
-/* MUSIC */
-
-#music {
-    background-color:  transparent;
-    border-radius: 10px;
-    padding: 0 8px;
-}
-#custom-cava {
-    color: white;
-    padding: 0 8px;
-}
-
-#mpris {
-    color: white;
-    padding: 0 8px;
-}
-
-/*-------------------------------------*/
-/* TASKBAR */
-
-#taskbar {
-    background-color: transparent;
-    border-radius: 10px;
+    padding: 0 4px;
+    font-size: 20px;
 }
 
 #taskbar button {
@@ -80,131 +35,173 @@ window#waybar {
 }
 
 #taskbar button.active {
-    background-color: rgb(0, 50, 150);
+    background-image: none;
+    background-color: @glass-background;
     border-radius: 0 20px 0 20px;
+    border: 2px solid @glass-border
 }
 
+#workspaces button:hover,
 #taskbar button:hover {
-    background-color: white;
     background-image: none;
-    color: black;
+    background-color: @focus-background;
+    border: 2px solid white;
     border-radius: 0 20px 0 20px;
 }
 
 /*-------------------------------------*/
-/* CLOCK */
+/* MUSIC */
 
-#clock {
+#music {
+    background-color: transparent;
+    border-radius: 10px;
+    padding: 0 8px;
+}
+
+#custom-cava,
+#mpris {
+    color: white;
+    padding: 0 8px;
+}
+
+#mpris {
+    font-family: "Poiret One";
+    font-weight: bolder;
+    letter-spacing: 2px;
+}
+
+/*-------------------------------------*/
+/* CLOCK + TOOLBAR (shared sliding highlight) */
+
+#clock,
+#toolbar {
     background-color: @glass-background;
-    background-image: linear-gradient(@focus-background, @focus-background);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 0% 100%;
+    background-image: none;
+    border: 2px solid @glass-border;
     border-radius: 0 10px 0 10px;
     color: white;
-    font-size: 18px;
+    transition: background-color 250ms ease-in-out,
+                padding 250ms ease-in-out,
+                font-size 0.1s ease;
+}
+
+#clock:hover,
+#toolbar:hover {
+    background-color: @focus-background;
+}
+
+#clock {
+    font-family: "Poiret One";
+    font-weight: bolder;
+    letter-spacing: 3px;
     padding: 0 20px;
-    box-shadow: 0 0 0 0 @focus-background;
-    transition: background-size 200ms ease-in-out,
-                background-color 200ms ease-in-out,
-                padding 200ms ease-in-out,
-                box-shadow 200ms ease-in-out;
+    font-size: 16px;
 }
 
 #clock:hover {
-    background-color: @focus-background;
-    color: black;
-    background-size: 100% 100%;
-    padding: 0px 26px;
-    box-shadow: 0 0 0 3px @focus-background;
+    padding: 0 23px;
+    font-size: 18px;
 }
 
-/*-------------------------------------*/
-/* TOOLBAR */
-
 #toolbar {
-    background-color: @glass-background;
-    background-image: linear-gradient(@focus-background, @focus-background);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 0% 100%;
-    border-radius: 0 10px 0 10px;
-    color: white;
-    font-size: 18px;
+    font-size: 17px;
     padding: 0 8px;
-    box-shadow: 0 0 0 0 rgba(0, 50, 150, 1);
-    transition: background-size 300ms ease-in-out,
-                background-color 300ms ease-in-out,
-                padding 300ms ease-in-out,
-                box-shadow 300ms ease-in-out;
 }
 
 #toolbar:hover {
-    background-color: @focus-background;
-    background-size: 100% 100%;
-    padding: 0px 12px;
-    box-shadow: 0 0 0 3px @focus-background;
+    padding: 0 11px;
 }
 
-#toolbar:hover #pulseaudio,
-#toolbar:hover #battery,
-#toolbar:hover #network,
-#toolbar:hover #custom-power {
-    color: black;
-}
+/*-------------------------------------*/
+/* TOOLBAR CONTENTS */
 
-#pulseaudio-slider slider {
-    min-height: 14px;
-    min-width: 14px;
-    opacity: 1;                            /* was 0, which hides the knob */
-    background-color: #000000;             /* knob color */
-    background-image: none;
-    border-radius: 100%;                   /* keeps it round */
-    box-shadow: none;
-}
-
-#pulseaudio-slider trough {
-    min-height: 8px;
-    min-width: 150px;
-    border-radius: 8px;
-    background-color: rgb(255, 255, 255);
-}
-
-#pulseaudio-slider highlight {
-    min-width: 8px;
-    border-radius: 8px;
-    background-color: rgb(0, 0, 0);
-}
-
+/* Paddings */
 #pulseaudio,
 #battery {
-    padding-left: 8px;
-    padding-right: 10px;
+    padding: 0 10px 0 8px;
 }
 
-#volume:hover #pulseaudio
-#volume:hover #pulseaudio-slider {
-    padding-left: 0;
-}
-
-#pulseaudio-slider {
-    padding-right: 10px;
+#network,
+#custom-power {
+    padding: 0 8px;
 }
 
 #custom-power {
     margin-right: 8px;
 }
 
-#network,
-#custom-power {
-    color: white;
-    padding: 0 8px;
+#pulseaudio-slider {
+    padding-right: 10px;
 }
 
-#pulseaudio,
-#network,
-#custom-power {
-    font-size: 17px;
+#volume:hover #pulseaudio,
+#volume:hover #pulseaudio-slider {
+    padding-left: 0;
 }
 
-/*----------------------------------------*/
+/* Icon size + grow animation */
+
+#pulseaudio {
+    font-size: 21px;
+    min-width: 15px;
+    transition: font-size 0.2s ease, min-width 0.2s ease;
+}
+
+#toolbar:hover #pulseaudio:hover {
+    font-size: 28px;
+    min-width: 15px;
+    color: rgb(66, 116, 255);
+}
+
+#network,
+#custom-power{
+    font-size: 18px;
+    min-width: 15px;
+    transition: font-size 0.2s ease, min-width 0.2s ease;
+}
+
+#toolbar:hover #network:hover,
+#toolbar:hover #custom-power:hover{
+    font-size: 25px;
+    min-width: 25px;
+    color: rgb(66, 116, 255);
+}
+
+/* Volume slider */
+#pulseaudio-slider slider {
+    min-height: 14px;
+    min-width: 14px;
+    background-image: none;
+    background-color: white;
+    border: none;
+    border-radius: 100%;
+}
+
+#pulseaudio-slider trough {
+    background-image: none;
+    min-height: 8px;
+    min-width: 150px;
+    border: 1px solid white;
+    border-radius: 8px;
+    background-color: transparent;
+}
+
+#pulseaudio-slider highlight {
+    min-width: 8px;
+    border: 1px solid white;
+    border-radius: 8px;
+    background-color: white;
+}
+
+/*-------------------------------------*/
+/* TOOLTIP / CALENDAR */
+
+tooltip {
+    background-color: rgba(119, 119, 119, 0.15);
+    border-radius: 15px;
+}
+tooltip label {
+    font-family: "ZedMono Nerd Font";
+    font-size: 20px;
+    padding: 15px;
+}

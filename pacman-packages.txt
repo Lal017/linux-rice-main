@@ -57,7 +57,7 @@ networkmanager-dmenu
 ttf-3270-nerd
 ttf-dejavu
 ttf-liberation
-ttf-proggyclean-nerd
+ttf-envycoder-nerd
 ttf-zed-mono-nerd
 noto-fonts
 noto-fonts-cjk

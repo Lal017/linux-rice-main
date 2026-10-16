@@ -3,7 +3,7 @@
     follow = mouse
     width = (350, 500)
     origin = top-right
-    offset = 20x20
+    offset = (20, 20)
     notification_limit = 5
     gap_size = 10
 

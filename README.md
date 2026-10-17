@@ -25,6 +25,7 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
+- style rofi
+- style network manager dmenu
 - add wallpaper switcher
 - add update script?
-- switch wofi for rofi?

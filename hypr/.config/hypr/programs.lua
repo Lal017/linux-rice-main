@@ -5,7 +5,7 @@
 return {
     terminal    = "kitty",
     fileManager = "dolphin",
-    menu = "wofi",
+    menu = "rofi -show drun",
     browser = "zen-browser",
     code = "vscodium",
 }

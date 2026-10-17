@@ -1,0 +1,87 @@
+configuration {
+    modi: "drun";
+    show-icons: true;
+    drun-display-format: "{name}";
+    display-drun: "";
+    drun-show-actions: false;
+}
+
+* {
+    font: "EnvyCodeR Nerd Font Propo 13";
+    sel-bg: #ffffff26;
+    fg-dim: #ffffffb3;
+    fg: #ffffff;
+}
+
+window {
+    location: center;
+    width: 40%;
+    background-color: #00000003;
+    border: 2px;
+    border-color: transparent;
+    border-radius: 15px;
+}
+
+mainbox {
+    children: [ inputbar, listview ];
+    spacing: 0;
+    padding: 0;
+    background-color: transparent;
+}
+
+inputbar {
+    background-color: transparent;
+    background-image: url("/home/lalo/Pictures/wallpapers/frieren.jpg", width);
+    padding: 100px 10px;
+    border-radius: 15px 15px 0 0;
+}
+
+prompt {
+    enabled: false;
+}
+
+entry {
+    text-color: transparent;
+    placeholder: "";
+    cursor-width: 0px;
+    background-color: transparent;
+}
+
+listview {
+    columns: 2;
+    lines: 10;
+    flow: horizontal;
+    fixed-height: true;
+    scrollbar: false;
+    spacing: 0;
+    background-color: transparent;
+}
+
+element {
+    padding: 10px 5px;
+    border-radius: 5px;
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+element selected.normal {
+    background-color: @sel-bg;
+    text-color: @fg;
+}
+
+element-icon {
+    size: 55px;
+    background-color: transparent;
+}
+
+element-text {
+    vertical-align: 0.5;
+    background-color: transparent;
+    text-color: inherit;
+}

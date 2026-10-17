@@ -49,8 +49,8 @@ hl.window_rule({
 })
 
 hl.layer_rule({
-    name  = "wofi-blur",
-    match = { namespace = "wofi" },
+    name  = "rofi-blur",
+    match = { namespace = "rofi" },
 
     blur         = true,
     ignore_alpha = 0,

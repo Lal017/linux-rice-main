@@ -63,16 +63,21 @@ window#waybar {
 /*-------------------------------------*/
 /* MUSIC */
 
-#music {
-    background-color: @glass-background;
-    border-radius: 0 20px 0 20px;
-    padding: 0 8px;
-}
-
 #custom-cava,
 #mpris {
+    background-color: @glass-background;
+    padding: 0 15px;
     color: white;
-    padding: 0 8px;
+}
+
+#custom-cava {
+    border-radius: 0 0 0 10px;
+    margin-right: 0;
+    border-right: none;
+}
+
+#mpris {
+    border-radius: 0 10px 0 0;
 }
 
 /*-------------------------------------*/

@@ -1,9 +1,12 @@
 configuration {
-    modi: "drun";
+    modi: "drun,ssh,recursivebrowser";
     show-icons: true;
     drun-display-format: "{name}";
-    display-drun: "";
     drun-show-actions: false;
+    display-drun: "󰀻";
+    display-ssh: "";
+    display-recursivebrowser: "";
+    parse-known-hosts: false;
 }
 
 * {
@@ -11,54 +14,117 @@ configuration {
     sel-bg: #ffffff26;
     fg-dim: #ffffffb3;
     fg: #ffffff;
+    border-col: rgba(255, 255, 255, 0.2);
 }
 
 window {
     location: center;
-    width: 40%;
-    background-color: #00000003;
-    border: 2px;
-    border-color: transparent;
+    width: 50%;
+    background-color: rgba(12, 12, 12, 0.4);
+    border: 0px;
     border-radius: 15px;
 }
 
 mainbox {
-    children: [ inputbar, listview ];
+    orientation: horizontal;
+    children: [ tabcolumn, imagebox, listbox ];
     spacing: 0;
     padding: 0;
     background-color: transparent;
 }
 
-inputbar {
+/* far-left tabs */
+tabcolumn {
+    orientation: vertical;
+    expand: false;
+    padding: 0 10px;
+    width: 3%;
     background-color: transparent;
-    background-image: url("/home/lalo/Pictures/wallpapers/frieren.jpg", width);
-    padding: 100px 10px;
-    border-radius: 15px 15px 0 0;
+    children: [ spacer-top, mode-switcher, spacer-bottom];
+}
+
+spacer-top, spacer-bottom {
+    expand: true;
+    background-color: transparent;
+}
+
+mode-switcher {
+    orientation: vertical;
+    expand: true;
+    background-color: transparent;
+}
+
+button {
+    expand: true;
+    font: "EnvyCodeR Nerd Font Propo 22";
+    border-radius: 100%;
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+button normal {
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+button selected {
+    background-color: @sel-bg;
+    text-color: @fg;
+}
+
+/* image column */
+imagebox {
+    expand: false;
+    width: 25%;
+    border-radius: 10px;
+    background-color: transparent;
+    background-image: url("/home/lalo/Pictures/wallpapers/nier2.jpg", height);
+}
+
+/* search + list column */
+listbox {
+    orientation: vertical;
+    padding: 10px;
+    spacing: 10px;
+    background-color: transparent;
+    children: [ inputbar, listview ];
+}
+
+inputbar {
+    children: [ prompt, entry ];
+    padding: 10px 14px;
+    spacing: 10px;
+    border: 2px;
+    border-color: @border-col;
+    border-radius: 0 10px 0 10px;
+    background-color: transparent;
 }
 
 prompt {
-    enabled: false;
+    enabled: true;
+    background-color: transparent;
+    text-color: @fg;
 }
 
 entry {
-    text-color: transparent;
-    placeholder: "";
-    cursor-width: 0px;
     background-color: transparent;
+    text-color: @fg;
+    cursor-width: 2px;
+    placeholder: "Search...";
+    placeholder-color: @fg-dim;
 }
 
 listview {
-    columns: 2;
-    lines: 10;
-    flow: horizontal;
+    columns: 1;
+    lines: 8;
     fixed-height: true;
     scrollbar: false;
-    spacing: 0;
+    spacing: 2px;
     background-color: transparent;
 }
 
 element {
-    padding: 10px 5px;
+    padding: 20px 10px;
     border-radius: 5px;
     background-color: transparent;
     text-color: @fg-dim;
@@ -76,7 +142,7 @@ element selected.normal {
 }
 
 element-icon {
-    size: 55px;
+    size: 50px;
     background-color: transparent;
 }
 

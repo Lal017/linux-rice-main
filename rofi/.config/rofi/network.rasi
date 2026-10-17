@@ -1,0 +1,23 @@
+@import "config"
+
+window {
+    width: 400px;
+    location: northeast;
+    anchor: northeast;
+    x-offset: -10px;
+    y-offset: 10px;
+}
+
+mainbox {
+    children: [ listview ];
+}
+
+listview {
+    columns: 1;
+    lines: 8;
+    padding: 6px;
+}
+
+element-text {
+    horizontal-align: 0.5;
+}

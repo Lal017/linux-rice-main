@@ -21,7 +21,7 @@ window#waybar {
 }
 
 /*---------------------------------------*/
-/* WORKSPACES + TASKBAR */
+/* WORKSPACES*/
 
 #workspaces button {
     color: white;
@@ -29,22 +29,35 @@ window#waybar {
     font-size: 20px;
 }
 
-#taskbar button {
-    padding: 5px;
-}
-
-#taskbar button.active {
-    background-image: none;
-    background-color: @glass-background;
-    border-radius: 0 20px 0 20px;
-}
-
-#workspaces button:hover,
-#taskbar button:hover {
+#workspaces button:hover {
     background-image: none;
     background-color: @focus-background;
     border: 2px solid white;
     border-radius: 0 20px 0 20px;
+}
+
+/* --------------------------------------*/
+/* TASKBAR */
+
+#taskbar {
+    background-color: @glass-background;
+    border-radius: 10px 10px 10px 10px;
+    padding: 0 5px;
+}
+
+#taskbar button {
+    padding: 10px;
+    margin: 0;
+}
+
+#taskbar button:hover {
+    border: 1px solid white;
+}
+
+#taskbar button:hover,
+#taskbar button.active {
+    background-image: none;
+    background-color: @focus-background;
 }
 
 /*-------------------------------------*/
@@ -83,12 +96,12 @@ window#waybar {
 
 #clock {
     padding: 0 21px;
-    font-size: 20px;
+    font-size: 17px;
 }
 
 #clock:hover {
     padding: 0 23px;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 #toolbar {

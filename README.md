@@ -25,6 +25,6 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- add old keybinds to hyprland
 - add wallpaper switcher
+- update where rofi pulls its image from
 - add update script?

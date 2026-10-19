@@ -96,6 +96,40 @@ else
     fi
 fi
 
+echo "==> Checking for Raleway font..."
+raleway_dir="$HOME/.local/share/fonts/Raleway"
+raleway_base="https://github.com/google/fonts/raw/main/ofl/raleway"
+raleway_installed=false
+mkdir -p "$raleway_dir"
+
+# "remote file (URL-encoded):local file". Local names avoid brackets, which are shell globs.
+for pair in \
+    "Raleway%5Bwght%5D.ttf:Raleway-Variable.ttf" \
+    "Raleway-Italic%5Bwght%5D.ttf:Raleway-Italic-Variable.ttf"
+do
+    remote="${pair%%:*}"
+    local_name="${pair##*:}"
+
+    if [ -f "$raleway_dir/$local_name" ]; then
+        echo "    Already have $local_name"
+        continue
+    fi
+
+    raleway_tmp="$(mktemp -p "$raleway_dir" .dl.XXXXXX)"
+    if curl -fL --retry 3 -o "$raleway_tmp" "$raleway_base/$remote" \
+       && mv "$raleway_tmp" "$raleway_dir/$local_name"; then
+        echo "    Installed $local_name"
+        raleway_installed=true
+    else
+        rm -f "$raleway_tmp"
+        echo "    WARNING: couldn't download $local_name"
+    fi
+done
+
+if [ "$raleway_installed" = true ]; then
+    fc-cache -f "$raleway_dir"
+fi
+
 echo "==> Previewing stow conflicts (no changes made)..."
 preview_output="$("${STOW[@]}" -R -n -v "${STOW_PACKAGES[@]}" 2>&1 || true)"
 if echo "$preview_output" | grep -q "cannot stow"; then

@@ -25,6 +25,5 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- update where rofi pulls its image from
 - add Raleway font download to install script
 - add update script?

@@ -23,6 +23,8 @@ less
 openssh
 cava
 dolphin
+ffmpegthumbs
+gthumb
 tumbler
 fastfetch
 dunst

@@ -1,0 +1,64 @@
+/* Wallpaper switcher */
+
+* {
+    font: "Poiret One 20";
+    sel-bg: #ffffff26;
+    fg-dim: #ffffffb3;
+    fg: #ffffff;
+    border-col: rgba(255, 255, 255, 0.2);
+}
+
+window {
+    location: center;
+    anchor: center;
+    width: 70%;
+    max-height: 70%;
+    background-color: rgba(12, 12, 12, 0.4);
+    border-radius: 15px;
+}
+
+mainbox {
+    orientation: vertical;
+    children: [ listview ];
+    background-color: transparent;
+}
+
+listview {
+    columns: 4;
+    lines: 1;
+    scrollbar: false;
+    background-color: transparent;
+}
+
+element {
+    orientation: vertical;
+    children: [ element-icon, element-text ];
+    background-color: transparent;
+    padding: 10px;
+    text-color: @fg-dim;
+}
+
+element-icon {
+    size: 15em;
+    border-radius: 25px;
+    background-color: transparent;
+}
+
+element normal.normal,
+element alternate.normal {
+    background-color: transparent;
+    text-color: @fg-dim;
+}
+
+element selected.normal {
+    background-color: @sel-bg;
+    text-color: @fg;
+}
+
+element-text {
+    horizontal-align: 0.5;
+    vertical-align: 0.5;
+    padding: 50px;
+    background-color: transparent;
+    text-color: inherit;
+}

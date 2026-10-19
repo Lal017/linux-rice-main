@@ -30,13 +30,13 @@ git
 grub
 hypridle
 hyprlock
-hyprpaper
 kitty
 mpv
 sddm
 starship
 stow
 rofi
+socat
 zsh
 zsh-autosuggestions
 unrar

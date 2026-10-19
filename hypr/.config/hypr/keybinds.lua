@@ -11,6 +11,7 @@ hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(programs.browser))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(programs.fileManager))
 hl.bind(mainMod .. " + A", hl.dsp.exec_cmd(programs.menu))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(programs.code))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(programs.wallpaper_switcher))
 
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 -- closeWindowBind:set_enabled(false)

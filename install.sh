@@ -80,7 +80,7 @@ else
 fi
 
 echo "==> Checking for Poiret One font..."
-font_dir="$HOME/.local/share/fonts"
+font_dir="$HOME/.local/share/fonts/PoiretOne"
 font_file="$font_dir/PoiretOne-Regular.ttf"
 if [ -f "$font_file" ]; then
     echo "    Already installed."

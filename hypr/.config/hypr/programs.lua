@@ -8,4 +8,5 @@ return {
     menu = "rofi -show",
     browser = "zen-browser",
     code = "vscodium",
+    wallpaper_switcher = "~/.config/hypr/scripts/wallpaper-menu.sh"
 }

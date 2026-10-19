@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Restores the last set wallpaper after shutdown
+pgrep -x mpvpaper >/dev/null && exit 0
+
 set -u
 
 script_dir="$(dirname -- "$(realpath -- "${BASH_SOURCE[0]}")")"

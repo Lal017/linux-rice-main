@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -u
 
-wallpaper_dir="$HOME/Pictures/wallpapers"
+wallpaper_dir="${XDG_DATA_HOME:-$HOME/.local/share}/wallpapers"
 script_dir="$(dirname -- "$(realpath -- "${BASH_SOURCE[0]}")")"
 apply_script="$script_dir/wallpaper-apply.sh"
-rofi_theme="$HOME/dotfiles/rofi/.config/rofi/wallpaper.rasi"
+rofi_theme="$HOME/.config/rofi/wallpaper.rasi"
 
 if [[ ! -d "$wallpaper_dir" ]]; then
     echo "wallpaper-menu: directory not found: $wallpaper_dir" >&2
@@ -31,7 +31,8 @@ for i in "${!files[@]}"; do
     file="${files[$i]}"
     entries+=("${file#"$wallpaper_dir"/}")
 
-    thumbnail="$preview_dir/preview-$i.jpg"
+    key=$(printf '%s' "$file" | sha1sum | cut -c1-16)
+    thumbnail="$preview_dir/$key.jpg"
 
     if [[ ! -s "$thumbnail" || "$file" -nt "$thumbnail" ]]; then
         case "${file,,}" in

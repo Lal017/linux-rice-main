@@ -321,94 +321,65 @@ fi
 
 echo "==> Syncing wallpapers..."
 
-wall_dir="$HOME/Pictures/wallpapers"
-wall_state="$HOME/.local/state/dotfiles-wallpapers.txt"
-wall_added=false
+wall_dir="${XDG_DATA_HOME:-$HOME/.local/share}/wallpapers"
 
 if [ -f wallpaper-urls.txt ]; then
-    mkdir -p "$wall_dir" "$(dirname "$wall_state")"
-    touch "$wall_state"
+    mkdir -p "$wall_dir"
 
     while read -r url || [ -n "$url" ]; do
         [ -z "$url" ] && continue
         [[ "$url" == \#* ]] && continue
 
-        # Skip wallpapers that have already been downloaded
-        if grep -qxF "$url" "$wall_state"; then
-            echo "    Already downloaded: $url"
+        # Ask the server for the filename and size using headers only (HEAD)
+        probe="$(mktemp)"
+        if ! curl -fsIL --retry 3 "$url" > "$probe"; then
+            echo "    WARNING: couldn't reach $url"
+            rm -f "$probe"
             continue
         fi
 
-        wall_tmp="$(mktemp)"
-        wall_headers="$(mktemp)"
+        fname="$(sed -n 's/.*filename="\([^"]*\)".*/\1/ip' "$probe" | tail -n1 | tr -d '\r')"
+        remote_size="$(sed -n 's/^[Cc]ontent-[Ll]ength: *\([0-9][0-9]*\).*/\1/p' "$probe" | tail -n1)"
+        rm -f "$probe"
 
-        if curl -fL --retry 3 \
-            -D "$wall_headers" \
-            -o "$wall_tmp" \
-            "$url"; then
+        if [ -z "$fname" ]; then
+            echo "    WARNING: no filename from server for: $url"
+            continue
+        fi
+        fname="$(basename "$fname")"
 
-            # Get filename supplied by Nextcloud
-            fname="$(
-                sed -n 's/.*filename="\([^"]*\)".*/\1/ip' "$wall_headers" |
-                tail -n1 |
-                tr -d '\r'
-            )"
-
-            if [ -z "$fname" ]; then
-                echo "    WARNING: Nextcloud did not provide a filename for:"
-                echo "             $url"
-                rm -f "$wall_tmp" "$wall_headers"
+        # Skip if we already have it with the same size
+        if [ -f "$wall_dir/$fname" ]; then
+            local_size="$(stat -c %s "$wall_dir/$fname")"
+            if [ -z "$remote_size" ] || [ "$local_size" = "$remote_size" ]; then
+                echo "    Already have: $fname"
                 continue
             fi
+            echo "    Changed on server, re-downloading: $fname"
+        fi
 
-            fname="$(basename "$fname")"
-
-            if mv "$wall_tmp" "$wall_dir/$fname"; then
-                echo "$url" >> "$wall_state"
-                wall_added=true
-                echo "    Downloaded: $fname"
-            else
-                echo "    WARNING: couldn't save $fname"
-                rm -f "$wall_tmp"
-            fi
+        # Download next to the destination (not /tmp, which is RAM), then rename into place
+        wall_tmp="$(mktemp -p "$wall_dir" .dl.XXXXXX)"
+        if curl -fL --retry 3 -o "$wall_tmp" "$url" && mv "$wall_tmp" "$wall_dir/$fname"; then
+            echo "    Downloaded: $fname"
         else
-            echo "    WARNING: couldn't download $url"
+            echo "    WARNING: couldn't download $fname"
             rm -f "$wall_tmp"
         fi
-
-        rm -f "$wall_headers"
-
     done < wallpaper-urls.txt
-
-    # Configure Hyprpaper
-    hyprpaper_conf="$HOME/.config/hypr/hyprpaper.conf"
-
-    mkdir -p "$(dirname "$hyprpaper_conf")"
-
-    if [ ! -f "$hyprpaper_conf" ]; then
-        cat > "$hyprpaper_conf" <<EOF
-wallpaper {
-    monitor =
-    path = ~/Pictures/wallpapers/clouds.jpg
-    fit_mode = cover
-}
-
-splash = false
-EOF
-    else
-        sed -i 's|^[[:space:]]*path[[:space:]]*=.*|    path = ~/Pictures/wallpapers/clouds.jpg|' "$hyprpaper_conf"
-    fi
-
-    # Restart Hyprpaper if new wallpapers were downloaded
-    if [ "$wall_added" = true ]; then
-        if pgrep -x hyprpaper >/dev/null; then
-            pkill -x hyprpaper
-        fi
-
-        nohup hyprpaper >/dev/null 2>&1 &
-    fi
 else
     echo "    wallpaper-urls.txt not found, skipping."
+fi
+
+# First-boot wallpaper: record a default for the restore script, without overriding a later choice
+wall_cur="$HOME/.local/state/wallpaper/current"
+mkdir -p "$(dirname "$wall_cur")"
+if [ ! -s "$wall_cur" ] && [ -f "$wall_dir/clouds.jpg" ]; then
+    printf '%s\n' "$wall_dir/among_flowers.jpg" > "$wall_cur"
+fi
+
+if hyprctl monitors >/dev/null 2>&1 && [ -s "$wall_cur" ]; then
+    "$HOME/.config/hypr/scripts/wallpaper-restore.sh" || true
 fi
 
 echo "==> Changing absolute paths to active user..."

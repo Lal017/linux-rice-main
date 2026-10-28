@@ -301,6 +301,24 @@ else
     echo "    Already using zsh."
 fi
 
+echo "==> Setting default monitors.lua file..."
+MONITORS="$DOTFILES_DIR/hypr/.config/hypr/monitors.lua"
+
+if [ ! -f "$MONITORS" ]; then
+    mkdir -p "$(dirname "$MONITORS")"
+    cat > "$MONITORS" <<'EOF'
+hl.monitor({
+  output   = "",
+  mode     = "preferred",
+  position = "auto",
+  scale    = "1"
+})
+EOF
+    echo "    Created default monitors.lua (run nwg-displays to set your layout)."
+else
+    echo "    monitors.lua already exists, skipping."
+fi
+
 echo "==> Checking for stow conflicts..."
 conflict_found=false
 

@@ -17,6 +17,7 @@ wireplumber
 pavucontrol
 xdg-desktop-portal-hyprland
 xdg-utils
+nwg-displays
 imv
 wl-clipboard
 less

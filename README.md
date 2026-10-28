@@ -25,5 +25,4 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- add Raleway font download to install script
 - add update script?

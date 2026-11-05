@@ -12,6 +12,7 @@ qt6-declarative
 bluez
 bluez-utils
 blueman
+brightnessctl
 waybar
 file
 pipewire

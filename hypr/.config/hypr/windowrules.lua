@@ -48,6 +48,15 @@ hl.window_rule({
     float = true,
 })
 
+hl.window_rule({
+    name    = "float-blueman",
+    match   = { class = "blueman-manager" },
+
+    float   = true,
+    size    = "monitor_w*0.25 monitor_h*0.6",
+    center  = true,
+})
+
 hl.layer_rule({
     name  = "rofi-blur",
     match = { namespace = "rofi" },

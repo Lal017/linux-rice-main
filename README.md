@@ -25,9 +25,10 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- add rofi images to cloud storage for download
 - update keybinds for laptop keyboard
 - update handling laptop lid close
+- use rofi image selector or randomizer to set the image for rofi
+- set notification/flag to notify user when a restart is needed after ./install requires a restart
 - change waybar layout
 - add update script?
 - configure waybar for two monitors (once you get one XD)

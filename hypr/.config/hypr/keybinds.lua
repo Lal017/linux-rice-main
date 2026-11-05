@@ -31,11 +31,10 @@ hl.bind(mainMod .. " + SHIFT + CONTROL + up", hl.dsp.window.move({ direction = "
 hl.bind(mainMod .. " + SHIFT + CONTROL + down", hl.dsp.window.move({ direction = "down" }))
 
 -- Resize Windows with mainMod + SHIFT + arrowKeys
-hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.resize({ x = -10, y = 0, relative = true }, {description = "Resize window" .. "left", repeating = true}))
-hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.resize({ x = 10, y = 0, relative = true }, {description = "Resize window" .. "right", repeating = true}))
-hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.resize({ x = 0, y = -10, relative = true }, {description = "Resize window" .. "up", repeating = true}))
-hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.resize({ x = 0, y = 10, relative = true }, {description = "Resize window" .. "down", repeating = true}))
-
+hl.bind(mainMod .. " + SHIFT + left",  hl.dsp.window.resize({ x = -10, y = 0,  relative = true }), { description = "Resize window left",  repeating = true })
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.resize({ x = 10,  y = 0,  relative = true }), { description = "Resize window right", repeating = true })
+hl.bind(mainMod .. " + SHIFT + up",    hl.dsp.window.resize({ x = 0,   y = -10, relative = true }), { description = "Resize window up",    repeating = true })
+hl.bind(mainMod .. " + SHIFT + down",  hl.dsp.window.resize({ x = 0,   y = 10,  relative = true }), { description = "Resize window down",  repeating = true })
 -- Switch workspaces with mainMod + [0-9]
 -- Move active window to a workspace with mainMod + SHIFT + [0-9]
 for i = 1, 10 do

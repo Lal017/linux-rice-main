@@ -17,7 +17,7 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # Notes
 
-- If you want any hidden apps to show on wofi:
+- If you want any hidden apps to show on rofi:
     1. go into `~/.local/share/applications`
     2. find the .desktop file of the app you want to show
     3. change `NoDisplay=true` to `NoDisplay=false` or remove the line completely
@@ -25,4 +25,9 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
+- add rofi images to cloud storage for download
+- update keybinds for laptop keyboard
+- update handling laptop lid close
+- change waybar layout
 - add update script?
+- configure waybar for two monitors (once you get one XD)

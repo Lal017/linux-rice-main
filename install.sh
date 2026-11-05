@@ -434,6 +434,36 @@ if hyprctl monitors >/dev/null 2>&1 && [ -s "$wall_cur" ]; then
     "$HOME/.config/hypr/scripts/wallpaper-restore.sh" || true
 fi
 
+echo "==> Syncing rofi images..."
+
+rofi_img_dir="${XDG_DATA_HOME:-$HOME/.local/share}/rofi/images"
+
+if [ -f rofi-images.txt ]; then
+    mkdir -p "$rofi_img_dir"
+
+    while read -r name url || [ -n "$name" ]; do
+        [ -z "$name" ] && continue
+        [[ "$name" == \#* ]] && continue
+
+        if [ -f "$rofi_img_dir/$name" ]; then
+            echo "    Already have $name"
+            continue
+        fi
+
+        img_tmp="$(mktemp -p "$rofi_img_dir" .dl.XXXXXX)"
+        if curl -fL --retry 3 -o "$img_tmp" "$url" \
+           && ! file --mime-type -b "$img_tmp" | grep -q '^text/'; then
+            mv "$img_tmp" "$rofi_img_dir/$name"
+            echo "    Downloaded $name"
+        else
+            rm -f "$img_tmp"
+            echo "    WARNING: couldn't download $name (bad link?)"
+        fi
+    done < rofi-images.txt
+else
+    echo "    rofi-images.txt not found, skipping."
+fi
+
 echo "==> Changing absolute paths to active user..."
 
 sed -i --follow-symlinks "s|^color_scheme_path=.*|color_scheme_path=$HOME/.config/qt6ct/style-colors.conf|" ~/.config/qt6ct/qt6ct.conf

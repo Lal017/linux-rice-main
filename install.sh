@@ -438,7 +438,7 @@ echo "==> Syncing rofi images..."
 
 rofi_img_dir="${XDG_DATA_HOME:-$HOME/.local/share}/rofi/images"
 
-if [ -f rofi-images.txt ]; then
+if [ -f rofi-urls.txt ]; then
     mkdir -p "$rofi_img_dir"
 
     while read -r name url || [ -n "$name" ]; do
@@ -459,9 +459,9 @@ if [ -f rofi-images.txt ]; then
             rm -f "$img_tmp"
             echo "    WARNING: couldn't download $name (bad link?)"
         fi
-    done < rofi-images.txt
+    done < rofi-urls.txt
 else
-    echo "    rofi-images.txt not found, skipping."
+    echo "    rofi-urls.txt not found, skipping."
 fi
 
 echo "==> Changing absolute paths to active user..."

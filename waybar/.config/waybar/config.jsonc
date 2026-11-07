@@ -1,99 +1,99 @@
 // -*- mode: jsonc -*-
-[
-    {
-        //"layer": "top", // Waybar at top layer
-        // "output": "", //outputs to all monitors by default
-        "position": "top", // Waybar position (top|bottom|left|right)
-        // "height": 41,
-        // "width": 1280, // Waybar width
-        "spacing": 5, // Gaps between modules (4px)
-        "margin-top": 10,
-        "margin-left": 0,
-        "margin-right": 0,
-        // Choose the order of the modules
-        "modules-left": [
-            "group/music"
-        ],
-        "modules-center": [
-            "hyprland/workspaces"
-        ],
-        "modules-right": [
-            "clock",
-            "group/toolbar"
-        ],
+{
+    //"layer": "top", // Waybar at top layer
+    // "output": "", //outputs to all monitors by default
+    "position": "top", // Waybar position (top|bottom|left|right)
+    // "height": 41,
+    // "width": 1280, // Waybar width
+    "spacing": 5, // Gaps between modules (4px)
+    "margin-top": 10,
+    "margin-left": 0,
+    "margin-right": 0,
+    // Choose the order of the modules
+    "modules-left": [
+        "hyprland/workspaces",
+        "group/music"
+    ],
+    "modules-center": [
+        "wlr/taskbar"
+    ],
+    "modules-right": [
+        "clock",
+        "group/toolbar"
+    ],
 
-        "group/toolbar": {
-            "orientation": "horizontal",
-            "modules": [
-                "group/volume",
-                "battery",
-                "network",
-                "custom/power"
-            ]
+    "group/toolbar": {
+        "orientation": "horizontal",
+        "modules": [
+            "group/volume",
+            "battery",
+            "network",
+            "custom/power"
+        ]
+    },
+    "group/music": {
+        "orientation": "horizontal",
+        "modules": [
+            "custom/cava",
+            "mpris"
+        ]
+    },
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "active": "",
+            "default": ""
         },
-        "group/music": {
-            "orientation": "horizontal",
-            "modules": [
-                "custom/cava",
-                "mpris"
-            ]
+        "sort-by-number": true,
+        "all-outputs": true
+    },
+    "custom/power": {
+        "format": "⭘",
+        "tooltip": false,
+        "on-click": "wlogout --buttons-per-row 4"
+    },
+    "clock": {
+        "format": "{:%I:%M %p}",
+        "format-alt": "{:%A, %e %B}",
+        "tooltip-format": "<big>{calendar}</big>",
+        "actions": {
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down",
+            "on-click-middle": "shift_reset"
         },
-        "hyprland/workspaces": {
-            "format": "{icon}",
-            "format-icons": {
-                "active": "",
-                "default": ""
-            },
-            "sort-by-number": true,
-            "all-outputs": true
-        },
-        "custom/power": {
-            "format": "⭘",
-            "tooltip": false,
-            "on-click": "wlogout --buttons-per-row 4"
-        },
-        "clock": {
-            "format": "{:%I:%M %p}",
-            "format-alt": "{:%A, %e %B}",
-            "tooltip-format": "<big>{calendar}</big>",
-            "actions": {
-                "on-scroll-up": "shift_up",
-                "on-scroll-down": "shift_down",
-                "on-click-middle": "shift_reset"
-            },
-            "calendar": {
-                "mode": "month",
-                "on-scroll": 1,
-                "format": {
-                    "months": "<b>{}</b>",
-                    "days": "{}",
-                    "weekdays": "<i>{}</i>",
-                    "today": "<span color='#4274ff'><b><u>{}</u></b></span>"
-                }
+        "calendar": {
+            "mode": "month",
+            "on-scroll": 1,
+            "format": {
+                "months": "<b>{}</b>",
+                "days": "{}",
+                "weekdays": "<i>{}</i>",
+                "today": "<span color='#4274ff'><b><u>{}</u></b></span>"
             }
+        }
+    },
+    "network": {
+        "format": "{ifname}",
+        "format-wifi": "{icon}",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "format-ethernet": "{ifname} ",
+        "format-disconnected": "󰤮",
+        "tooltip-format": "{ifname}",
+        "tooltip-format-wifi": "{essid}\n\n{icon}  {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname} ",
+        "tooltip-format-disconnected": "Disconnected",
+        "max-length": 50,
+        "on-click": "networkmanager_dmenu"
+    },
+    "group/volume": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 300,
+            "transition-left-to-right": false,
+            "click-to-reveal": false
         },
-        "network": {
-            "format": "{ifname}",
-            "format-wifi": "{icon}",
-            "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
-            "format-ethernet": "{ifname} ",
-            "format-disconnected": "󰤮",
-            "tooltip-format": "{ifname}",
-            "tooltip-format-wifi": "{essid}\n\n{icon}  {signalStrength}%",
-            "tooltip-format-ethernet": "{ifname} ",
-            "tooltip-format-disconnected": "Disconnected",
-            "max-length": 50,
-            "on-click": "networkmanager_dmenu"
-        },
-        "group/volume": {
-            "orientation": "inherit",
-            "drawer": {
-                "transition-duration": 300,
-                "transition-left-to-right": false,
-                "click-to-reveal": false
-            },
-            "modules": ["pulseaudio", "pulseaudio/slider"]
-        },
+        "modules": ["pulseaudio", "pulseaudio/slider"]
+    },
 
         "pulseaudio/slider": {
             "min": 0,
@@ -149,21 +149,11 @@
                 "critical": 15
             },
             "interval": 30
-        }
-    },
-    {
-        "layer": "top",
-        "position": "bottom",
-        // "margin-left": 10,
-        "margin-bottom": 10,
-        "modules-center": [
-            "wlr/taskbar"
-        ],
+        },
         "wlr/taskbar": {
             "format": "{icon}",
-            "icon-size": 40,
+            "icon-size":20,
             "tooltip-format": "{title}",
             "on-click": "activate"
         }
-    }
-]
+}

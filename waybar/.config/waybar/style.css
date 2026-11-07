@@ -41,23 +41,24 @@ window#waybar {
 
 #taskbar {
     background-color: @glass-background;
-    border-radius: 10px 10px 10px 10px;
-    padding: 0 5px;
+    border-radius: 0 10px 0 10px;
 }
 
 #taskbar button {
-    padding: 10px;
+    padding: 5px;
     margin: 0;
 }
 
 #taskbar button:hover {
     border: 1px solid white;
+    border-radius: 0 10px 0 10px;
 }
 
 #taskbar button:hover,
 #taskbar button.active {
     background-image: none;
     background-color: @focus-background;
+    border-radius: 0 10px 0 10px;
 }
 
 /*-------------------------------------*/

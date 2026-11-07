@@ -25,8 +25,6 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- update handling laptop lid close
-- use rofi image selector or randomizer to set the image for rofi
 - set notification/flag to notify user when a restart is needed after ./install requires a restart
 - change waybar layout
 - make battery icon on laptops animated on hover

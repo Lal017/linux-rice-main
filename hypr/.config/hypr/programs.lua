@@ -5,7 +5,7 @@
 return {
     terminal    = "kitty",
     fileManager = "dolphin",
-    menu = "rofi -show",
+    menu = "~/.config/hypr/scripts/rofi-random.sh",
     browser = "zen-browser",
     code = "vscodium",
     wallpaper_switcher = "~/.config/hypr/scripts/wallpaper-menu.sh"

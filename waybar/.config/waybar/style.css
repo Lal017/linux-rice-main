@@ -160,6 +160,7 @@ window#waybar {
     color: rgb(66, 116, 255);
 }
 
+#battery,
 #network,
 #custom-power{
     font-size: 18px;
@@ -167,6 +168,7 @@ window#waybar {
     transition: font-size 0.2s ease, min-width 0.2s ease;
 }
 
+#toolbar:hover #battery:hover,
 #toolbar:hover #network:hover,
 #toolbar:hover #custom-power:hover{
     font-size: 25px;

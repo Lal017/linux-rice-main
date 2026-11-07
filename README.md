@@ -25,7 +25,6 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- set notification/flag to notify user when a restart is needed after ./install requires a restart
 - change waybar layout
 - make battery icon on laptops animated on hover
 - add update script?

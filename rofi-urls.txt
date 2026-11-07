@@ -1,4 +1,5 @@
 # filename  URL
 frieren.jpg https://cloud.axistunnel.com/public.php/dav/files/ZDRw7stPpGCycTE
-no_face.png https://cloud.axistunnel.com/public.php/dav/files/rLtXmPrbPmH83Jp
-dripping_face.jpg https://cloud.axistunnel.com/public.php/dav/files/dkg8Fd7wktk3cMr
+angel_devil.jpg https://cloud.axistunnel.com/public.php/dav/files/BgFzxGxTibw5cWS
+sky.jpg https://cloud.axistunnel.com/public.php/dav/files/bXQ4fKXxZW7pTmG
+vagabond.jpg https://cloud.axistunnel.com/public.php/dav/files/gmTRoswWxFebaiF

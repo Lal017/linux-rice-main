@@ -25,7 +25,5 @@ Personal Arch Linux + Hyprland dotfiles, managed with GNU Stow.
 
 # ToDo
 
-- change waybar layout
-- make battery icon on laptops animated on hover
 - add update script?
 - configure waybar for two monitors (once you get one XD)

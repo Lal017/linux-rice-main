@@ -54,7 +54,7 @@
     },
     "clock": {
         "format": "{:%I:%M %p}",
-        "format-alt": "{:%A, %e %B}",
+        "format-alt": "{:%A,%e %B}",
         "tooltip-format": "<big>{calendar}</big>",
         "actions": {
             "on-scroll-up": "shift_up",
